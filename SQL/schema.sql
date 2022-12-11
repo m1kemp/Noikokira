@@ -40,7 +40,8 @@ CREATE TABLE offer(
     likes SMALLINT NOT NULL,
     dislikes SMALLINT NOT NULL,
     item_id SMALLINT UNSIGNED NOT NULL,
+    user_id SMALLINT UNSIGNED NOT NULL,
     PRIMARY KEY(offer_id),
-    CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE
-
+    CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE RESTRICT #Offer cant be transfered!
 )
