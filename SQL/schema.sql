@@ -3,12 +3,18 @@ CREATE SCHEMA noikokira;
 USE noikokira;
 
 
+CREATE TABLE address(
+    address_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    address_name VARCHAR(45) NOT NULL,
+    PRIMARY KEY (address_id)
+);
+
 CREATE TABLE user(
     user_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(45) NOT NULL,
     last_name VARCHAR(45) NOT NULL ,
     email VARCHAR(45) NOT NULL ,
-    address_id SMALLINT NOT NULL ,
+    address_id SMALLINT UNSIGNED NOT NULL ,
     points SMALLINT NOT NULL ,
     tokens SMALLINT NOT NULL ,
     password VARCHAR(64) NOT NULL,
@@ -23,11 +29,6 @@ CREATE TABLE admin(
     PRIMARY KEY(admin_id)
 );
 
-CREATE TABLE address(
-    address_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    address_name VARCHAR(45) NOT NULL,
-    PRIMARY KEY (address_name)
-);
 
 CREATE TABLE item_category(
     category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -48,8 +49,10 @@ CREATE TABLE offer(
     dislikes SMALLINT NOT NULL,
     item_id MEDIUMINT UNSIGNED NOT NULL,
     user_id SMALLINT UNSIGNED NOT NULL,
+    store_id SMALLINT UNSIGNED NOT NULL,
     PRIMARY KEY(offer_id),
     CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_offer_store FOREIGN KEY (store_id) REFERENCES store(store_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE RESTRICT #Offer cant be transfered!
 );
 
