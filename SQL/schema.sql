@@ -8,10 +8,12 @@ CREATE TABLE user(
     first_name VARCHAR(45) NOT NULL,
     last_name VARCHAR(45) NOT NULL ,
     email VARCHAR(45) NOT NULL ,
+    address_id SMALLINT NOT NULL ,
     points SMALLINT NOT NULL ,
     tokens SMALLINT NOT NULL ,
     password VARCHAR(64) NOT NULL,
-    PRIMARY KEY (user_id)
+    PRIMARY KEY (user_id),
+    CONSTRAINT fk_user_address_id FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE admin(
@@ -21,6 +23,11 @@ CREATE TABLE admin(
     PRIMARY KEY(admin_id)
 );
 
+CREATE TABLE address(
+    address_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    address_name VARCHAR(45) NOT NULL,
+    PRIMARY KEY (address_name)
+);
 
 CREATE TABLE item_category(
     category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
