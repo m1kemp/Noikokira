@@ -60,3 +60,4 @@ width: min-content;
   right:2em;
   inset-block-end: 1.2em;
 }
+/*((?=.*\d)(?=.*[a-z])(?=.*[A-Z])).{8,}*/
