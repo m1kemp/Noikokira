@@ -67,4 +67,5 @@ CREATE TABLE store_inventory(
     store_id MEDIUMINT UNSIGNED NOT NULL,
     item_id MEDIUMINT UNSIGNED NOT NULL,
     PRIMARY KEY (inventory_id)
+    #TODO: Add foreign key constraint to store_id ans item_id
 );
