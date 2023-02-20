@@ -31,7 +31,7 @@ app.use("/",router)
 
 app.use((req,res)=>
 {
-    res.redirect("\login")
+    res.redirect("/");
 })
 
 app.listen(3000,()=>console.log("Start app"))

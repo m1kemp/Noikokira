@@ -4,7 +4,29 @@ import {con} from "./test.mjs"
 const router=express.Router()
 
 
+router.get("/",(req,res)=>{
+    res.render("admin_user")
+})
 
+router.get("/login_admin",(req,res)=>{
+    res.render("login_admin")
+})
+router.post("/homepage_admin",(req,res)=>{
+    const {username,password}=req.body;
+    con.query("SELECT username,password from admin WHERE username=? and password=?",
+    [username,password],(error,result)=>{
+        if(error){
+            console.log(error);
+        }
+        else if(result.length>0){
+    
+    return res.render("homepage_admin",{username:username})
+        }
+        else{
+            res.render("login_admin",{message:"The account does not exist"})
+        }
+        })
+        })
 
 router.get("/login",(req,res)=>{
     res.render("login")
@@ -50,6 +72,10 @@ return res.render("maps",{username:username})
     }
     })
     })
+
+
+
+
 
 router.get("/logout",(req,res)=>{
 req.session.destroy();

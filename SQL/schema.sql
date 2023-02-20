@@ -11,20 +11,17 @@ CREATE TABLE address(
 
 CREATE TABLE user(
     user_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(45) NOT NULL,
-    last_name VARCHAR(45) NOT NULL ,
+    username VARCHAR(45) NOT NULL,
     email VARCHAR(45) NOT NULL ,
-    address_id SMALLINT UNSIGNED ,
+    password VARCHAR(64) NOT NULL,
     points SMALLINT NOT NULL ,
     tokens SMALLINT NOT NULL ,
-    password VARCHAR(64) NOT NULL,
-    PRIMARY KEY (user_id),
-    CONSTRAINT fk_user_address_id FOREIGN KEY (address_id) REFERENCES address(address_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    PRIMARY KEY (user_id)
 );
 
 CREATE TABLE admin(
     admin_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    email VARCHAR(45)NOT NULL,
+    username VARCHAR(45)NOT NULL,
     password VARCHAR(64) NOT NULL,
     PRIMARY KEY(admin_id)
 );
