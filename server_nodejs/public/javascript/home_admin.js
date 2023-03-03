@@ -28,6 +28,7 @@ function addProduct(){
    form.appendChild(button1);
    document.getElementById("upFile").appendChild(form);
    one=false;
+   console.log(document.getElementsByName);
    }
    
   const removeButton =document.getElementById("but");
@@ -115,12 +116,28 @@ function addSuper(){
    }
    const removeButton3 =document.getElementById("but3");
    removeButton3.addEventListener("click",()=>{
+      //Upload button Click
+      let file = document.getElementById("myFile3").files[0]
+      uploadFile(file);
       document.getElementById("par3").remove();
       document.getElementById("myFile3").remove();
       document.getElementById("but3").remove();
       one3=true;
    }
    )
+}
+
+function uploadFile(file){
+   let formData = new FormData();
+   const endpoint = "/upload";
+   
+   formData.append("file", file);
+   fetch(endpoint, {method: "POST", body: formData})
+   
+   .then(json => console.log(json))
+   .catch(err => console.error(err));
+   alert('File Uploaded');
+   
 }
 
 //Remove supermarkets
