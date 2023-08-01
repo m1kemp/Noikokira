@@ -96,7 +96,7 @@ function addSuper(){
    node3.appendChild(textNode3);
    document.getElementById("upFile").appendChild(node3);
 
-   const form3=document.createElement("form");
+   const form3=document.createElement("form"); //TODO: Add post method to form
    
 
    const input3=document.createElement("input");

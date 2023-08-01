@@ -40,18 +40,7 @@ CREATE TABLE item(
     PRIMARY KEY (item_id, category_id),
     CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-CREATE TABLE offer(
-    offer_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    likes SMALLINT NOT NULL,
-    dislikes SMALLINT NOT NULL,
-    item_id MEDIUMINT UNSIGNED NOT NULL,
-    user_id SMALLINT UNSIGNED NOT NULL,
-    store_id SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY(offer_id),
-    CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_offer_store FOREIGN KEY (store_id) REFERENCES store(store_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE RESTRICT #Offer cant be transfered!
-);
+
 
 CREATE TABLE store(
     store_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,

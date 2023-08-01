@@ -4,13 +4,20 @@ import session from "express-session";
 import createMemoryStore from "memorystore";
 import {router} from "./router.mjs"
 
-const fileUpload = require('express-fileupload');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const _ = require('lodash');
+import fileUpload from "express-fileupload";
+import cors from "cors"
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import _ from "lodash";
+
+
+
 
 const MemoryStore=createMemoryStore(session)
+
+
+
+const app=express()
 
 app.use(fileUpload({
     createParentPath: true
@@ -22,7 +29,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
-const app=express()
 const mySession= session (
 {
     secret: process.env.SESSION_SECRET || "bc7ffa23456mmmvl",

@@ -81,10 +81,10 @@ router.get("/logout",(req,res)=>{
 req.session.destroy();
 res.redirect("/")
 })
-
 router.post('/upload', async (req, res) => {
     try {
       if (!req.files) {
+        console.log("Failed");
         res.send({
           status: false,
           message: 'No file uploaded'
@@ -94,7 +94,7 @@ router.post('/upload', async (req, res) => {
         let jsonFile = req.files.file
   
         // Use the mv() method to place the file in the upload directory (i.e. "uploads")
-        jsonFile.mv('/uploads/' + jsonFile.name)
+        jsonFile.mv('./uploads/' + jsonFile.name)
   
         //send response
         res.send({

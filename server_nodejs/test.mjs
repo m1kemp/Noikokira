@@ -4,7 +4,7 @@ import {sendQuery} from "./conHandler.mjs";
 const app=express();
 const con= mysql.createConnection({
     host:"localhost",
-    user:"root",
+    user:"remoteUser",
     password:"root",
     database:"noikokira"
 })
