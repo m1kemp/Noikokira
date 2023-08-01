@@ -33,6 +33,9 @@ function addProduct(){
    
   const removeButton =document.getElementById("but");
    removeButton.addEventListener("click",()=>{
+      //Upload button Click
+      let file = document.getElementById("myFile").files[0]
+      uploadFile(file);
       document.getElementById("par").remove();
       document.getElementById("myFile").remove();
       document.getElementById("but").remove();
@@ -74,6 +77,9 @@ function removeProduct(){
   }
    const removeButton2 =document.getElementById("but2");
    removeButton2.addEventListener("click",()=>{
+      //Upload button Click
+      let file = document.getElementById("myFile2").files[0]
+      uploadFile(file);
       document.getElementById("par2").remove();
       document.getElementById("myFile2").remove();
       document.getElementById("but2").remove();
@@ -127,19 +133,6 @@ function addSuper(){
    )
 }
 
-function uploadFile(file){
-   let formData = new FormData();
-   const endpoint = "/upload";
-   
-   formData.append("file", file);
-   fetch(endpoint, {method: "POST", body: formData})
-   
-   .then(json => console.log(json))
-   .catch(err => console.error(err));
-   alert('File Uploaded');
-   
-}
-
 //Remove supermarkets
 
 const addButton4=document.getElementById("deleteSuper");
@@ -173,10 +166,26 @@ function deleteSuper(){
    }
    const removeButton4 =document.getElementById("but4");
    removeButton4.addEventListener("click",()=>{
+      //Upload button Click
+      let file = document.getElementById("myFile3").files[0]
+      uploadFile(file);
       document.getElementById("par4").remove();
       document.getElementById("myFile4").remove();
       document.getElementById("but4").remove();
       one4=true;
    }
    )
+}
+
+function uploadFile(file){
+   let formData = new FormData();
+   const endpoint = "/upload";
+   
+   formData.append("file", file);
+   fetch(endpoint, {method: "POST", body: formData})
+   
+   .then(json => console.log(json))
+   .catch(err => console.error(err));
+   alert('File Uploaded');
+   
 }
