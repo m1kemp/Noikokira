@@ -87,7 +87,7 @@ function removeProduct(){
 
 const addButton3=document.getElementById("addSuper");
 addButton3.addEventListener("click",addSuper);
-let one3=true;
+let one3=true;    //TODO: Refactor "one3" variable and all other similar variables
 function addSuper(){
    while(one3===true){
    const node3= document.createElement("p");
