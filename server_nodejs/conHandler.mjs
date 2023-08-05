@@ -24,7 +24,6 @@ import fs from "fs"
         for (var i = 0; i < superArray.length; i++){
             var name = superArray[i].tags.name;
             if(typeof(name) != "undefined"){
-                //console.log(name);
                 //Add the supermarket names to the query
                 query += "('";
                 query += name;

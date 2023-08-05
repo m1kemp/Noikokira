@@ -116,12 +116,30 @@ router.post('/upload', async (req, res) => {
         });
 
         //Read uploaded json
-        updateSupermarkets(jsonFile.name);
+        //updateSupermarkets(jsonFile.name);
       }
     } catch (err) {
       res.status(500).send(err)
     }
   })
+
+router.post("/database/update", async (req, res) => {
+  try{
+    console.log(req.body.fileName)
+    if(req.body.type == "addSuper"){
+      updateSupermarkets(req.body.fileName)
+    }
+
+
+    res.send({
+      status: true,
+      message: 'Database updated'
+    });
+
+  }catch(err){
+    res.status(500).send(err)
+  }
+});
 
 export{router}
 

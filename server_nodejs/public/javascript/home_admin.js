@@ -124,7 +124,16 @@ function addSuper(){
    removeButton3.addEventListener("click",()=>{
       //Upload button Click
       let file = document.getElementById("myFile3").files[0]
+
+      //Get file Name
+      var fileName = document.getElementById("myFile3").value;
+      console.log(fileName);
+
       uploadFile(file);
+
+      //Update database from uploaded file
+      updateDatabase(file.name, "addSuper");
+
       //document.getElementById("par3").remove();
       //document.getElementById("myFile3").remove();
       //document.getElementById("but3").remove();
@@ -189,5 +198,17 @@ function uploadFile(file){
    .catch(err => console.error(err));
    alert('File Uploaded');
    
+}
+
+function updateDatabase(fileName, type){
+   let formData= new FormData();
+   const endpoint = "/database/update";
+
+   formData.append("fileName", fileName)
+   formData.append("type", type);
+
+   fetch(endpoint, {method: "POST", body: formData})
+   .catch(err => console.error(err));
+
 }
 
