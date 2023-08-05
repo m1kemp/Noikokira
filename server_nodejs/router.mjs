@@ -1,6 +1,14 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
+import {updateSupermarkets} from "./conHandler.mjs"
+
+import fileUpload from "express-fileupload";
+import cors from "cors"
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import _ from "lodash";
+
 const router=express.Router()
 
 
@@ -105,7 +113,10 @@ router.post('/upload', async (req, res) => {
             mimetype: jsonFile.mimetype,
             size: jsonFile.size
           }
-        })
+        });
+
+        //Read uploaded json
+        updateSupermarkets(jsonFile.name);
       }
     } catch (err) {
       res.status(500).send(err)

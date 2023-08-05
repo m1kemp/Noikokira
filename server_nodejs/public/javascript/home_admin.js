@@ -36,9 +36,9 @@ function addProduct(){
       //Upload button Click
       let file = document.getElementById("myFile").files[0]
       uploadFile(file);
-      document.getElementById("par").remove();
-      document.getElementById("myFile").remove();
-      document.getElementById("but").remove();
+      //document.getElementById("par").remove();
+      //document.getElementById("myFile").remove();
+      //document.getElementById("but").remove();
    one=true;
    }
    )
@@ -80,9 +80,9 @@ function removeProduct(){
       //Upload button Click
       let file = document.getElementById("myFile2").files[0]
       uploadFile(file);
-      document.getElementById("par2").remove();
-      document.getElementById("myFile2").remove();
-      document.getElementById("but2").remove();
+      //document.getElementById("par2").remove();
+      //document.getElementById("myFile2").remove();
+      //document.getElementById("but2").remove();
       one2=true;
    }
    )
@@ -125,9 +125,10 @@ function addSuper(){
       //Upload button Click
       let file = document.getElementById("myFile3").files[0]
       uploadFile(file);
-      document.getElementById("par3").remove();
-      document.getElementById("myFile3").remove();
-      document.getElementById("but3").remove();
+      //document.getElementById("par3").remove();
+      //document.getElementById("myFile3").remove();
+      //document.getElementById("but3").remove();
+
       one3=true;
    }
    )
@@ -167,12 +168,12 @@ function deleteSuper(){
    const removeButton4 =document.getElementById("but4");
    removeButton4.addEventListener("click",()=>{
       //Upload button Click
-      let file = document.getElementById("myFile3").files[0]
+      let file = document.getElementById("myFile4").files[0]
       uploadFile(file);
-      document.getElementById("par4").remove();
-      document.getElementById("myFile4").remove();
-      document.getElementById("but4").remove();
-      one4=true;
+      //document.getElementById("par4").remove();
+      //document.getElementById("myFile4").remove();
+      //document.getElementById("but4").remove();
+      //one4=true;
    }
    )
 }
@@ -189,3 +190,4 @@ function uploadFile(file){
    alert('File Uploaded');
    
 }
+
