@@ -11,45 +11,85 @@ import fs from "fs"
     })
  }
 
- function updateSupermarkets(fileName){
-    //File must me located in ./uploads
+
+
+function updateSupermarkets(fileName) {
     var filePath = "./uploads/" + fileName;
-    var query = "INSERT INTO store (store_name) VALUES "
 
-    //Read the json file and organise contents in the superArray
     fs.readFile(filePath, (err, data) => {
-        if (err) throw err;
-        var supermarketData = JSON.parse(data);
-        var superArray = supermarketData.elements
-        for (var i = 0; i < superArray.length; i++){
-            var name = superArray[i].tags.name;
-            if(typeof(name) != "undefined"){
-                //Add the supermarket names to the query
-                query += "('";
-                query += name;
-                query += "')";
-                query += ", ";
-            }
-
+        if (err) {
+            console.error(err);
+            return;
         }
-        //Complete query
-        query = query.slice(0, -2);
-        query += ";";
-        console.log(query);
+        var supermarketData = JSON.parse(data);
+        var superArray = supermarketData.elements;
+        
+        // Prepare an array to hold values for bulk insert
+        const valuesArray = [];
 
-        //Send query
-        sendQuery(query, err, (err,result,fields)=>{
-            if (err){
-                return console.log(err);
+        for (var i = 0; i < superArray.length; i++) {
+            var name = superArray[i].tags.name;
+            var lat = superArray[i].lat;
+            var lon = superArray[i].lon;
+
+            if (typeof name !== "undefined") {
+                // Push values into the array for bulk insert
+                valuesArray.push([name, lat, lon]);
             }
-            else return console.log(result);
-        });
+        }
 
+        // Bulk insert using a single query
+        if (valuesArray.length > 0) {
+            const query = "INSERT INTO STORE (store_name, store_lat, store_lon) VALUES ?";
+            con.query(query, [valuesArray], (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log("Inserted rows: " + result.affectedRows);
+                }
+            });
+        }
     });
+}
 
 
+function removeSupermarkets(fileName) {
+    var filePath = "./uploads/" + fileName;
 
- }
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        var supermarketData = JSON.parse(data);
+        var superArray = supermarketData.elements;
+        
+        // Prepare an array to hold values for bulk insert
+        const valuesArray = [];
 
- export{sendQuery}
- export {updateSupermarkets}
+        for (var i = 0; i < superArray.length; i++) {
+            var name = superArray[i].tags.name;
+            var lat = superArray[i].lat;
+            var lon = superArray[i].lon;
+
+            if (typeof name !== "undefined") {
+                // Push values into the array for bulk insert
+                valuesArray.push([name, lat, lon]);
+            }
+        }
+
+        // Bulk insert using a single query
+        if (valuesArray.length > 0) {
+            const query = "DELETE FROM STORE WHERE (store_name,store_lat, store_lon) IN (?)";
+            con.query(query, [valuesArray], (err, result) => {
+                if (err) {
+                    console.log("db error");
+                    console.error(err);
+                } else {
+                    console.log("Deleted rows: " + result.affectedRows);
+                }
+            });
+        }
+    });
+}
+export { sendQuery, updateSupermarkets,removeSupermarkets };

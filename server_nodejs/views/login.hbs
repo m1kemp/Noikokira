@@ -15,7 +15,11 @@
     <label for="username">Username</label>
     <input type="username" placeholder="username" id="username" name="username" required value={{#if username}} {{username}} {{/if}} >
     <label for="password">Password</label>
-<input type="password" placeholder="" id="password" name="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])).{8,}" required>
+<input type="password" placeholder="" id="password" name="password">
+
+<!-- <input type="password" placeholder="" id="password" name="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])).{8,}" required>
+-->
+
 <div class="vision">
 <label for="toggle" id="ltoggle"> Show password:</label>
 <input type="checkbox" id="toggle">

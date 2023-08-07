@@ -1,7 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
-import {updateSupermarkets} from "./conHandler.mjs"
+import {sendQuery, updateSupermarkets, removeSupermarkets} from "./conHandler.mjs"
 
 import fileUpload from "express-fileupload";
 import cors from "cors"
@@ -125,9 +125,11 @@ router.post('/upload', async (req, res) => {
 
 router.post("/database/update", async (req, res) => {
   try{
-    console.log(req.body.fileName)
     if(req.body.type == "addSuper"){
       updateSupermarkets(req.body.fileName)
+    }
+    if(req.body.type == "deleteSuper"){
+      removeSupermarkets(req.body.fileName)
     }
 
 
@@ -140,6 +142,36 @@ router.post("/database/update", async (req, res) => {
     res.status(500).send(err)
   }
 });
+
+router.post("/database/get", async (req, res) => {
+  try{
+    //Fetch supermarkets
+    if(req.body.type == "super"){
+      let formData = new FormData();
+
+      var data;
+
+      const query = "select * from store;";
+
+      con.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+        } else {
+          //Send the data to frontend
+          res.json({message: result});
+        }
+    });
+    }
+
+    //Fetch products
+    if(req.body.type == "prod"){
+
+    }
+  }
+  catch(err){
+    res.status(500).send(err)
+  }
+})
 
 export{router}
 

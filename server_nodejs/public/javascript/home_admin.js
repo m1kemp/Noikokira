@@ -1,3 +1,4 @@
+//import { update } from "lodash";
 
 // Add products
 const addButton=document.getElementById("addPr");
@@ -179,6 +180,7 @@ function deleteSuper(){
       //Upload button Click
       let file = document.getElementById("myFile4").files[0]
       uploadFile(file);
+      updateDatabase(file.name, "deleteSuper");
       //document.getElementById("par4").remove();
       //document.getElementById("myFile4").remove();
       //document.getElementById("but4").remove();
@@ -208,7 +210,7 @@ function updateDatabase(fileName, type){
    formData.append("type", type);
 
    fetch(endpoint, {method: "POST", body: formData})
-   .catch(err => console.error(err));
+   .catch(err => console.error(b));
 
 }
 

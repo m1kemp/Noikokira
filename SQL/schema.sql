@@ -45,6 +45,8 @@ CREATE TABLE item(
 CREATE TABLE store(
     store_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     store_name VARCHAR(20) NOT NULL,
+    store_lat DOUBLE NOT NULL,
+    store_lon DOUBLE NOT NULL,
     PRIMARY KEY(store_id)
 );
 

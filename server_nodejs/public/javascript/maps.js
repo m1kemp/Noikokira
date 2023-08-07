@@ -12,44 +12,63 @@ L.marker([ 38.245985579010124, 21.733685269781077]).addTo(map).bindPopup('A pret
 
 var redIcon = L.icon({
    iconUrl: 'img/red-marker.png',
-iconSize:[40,40]
+   iconSize:[40,40]
 });
+
+   
+   //Fetch data from backend
+   function getData(type){
+      var formData = new FormData();
+      const endpoint = "/database/get";
+
+      formData.append("type", type);
+
+      fetch(endpoint, {method: "POST", body: formData})
+      .then((r)=>r.json()).then((res) => {
+         var jsonData = res.message;
+         for (let i = 0; i < jsonData.length; i++){
+            L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+jsonData[i].store_name);
+         }
+      })
+      .catch(err => console.error(err))
+   }
+
+   getData("super");
+
+   /*
+   //Data file name
    const jasonPath="./jason/supermarket.json"
+   
+   //For supermarkets
+   const myList = document.querySelector("ul[class='supermarkets']");
 
-     
-
-    
-     
-         
-    const myList = document.querySelector("ul[class='supermarkets']");
-        fetch(jasonPath)
-         .then((response) =>{
-            if (!response.ok) {
-               throw new Error(`HTTP error, status = ${response.status}`);
-             }
+   //Fetch file from server
+   fetch(jasonPath)
+   .then((response) =>{
+        if (!response.ok) {
+           throw new Error(`HTTP error, status = ${response.status}`);
+        }
 
              return response.json();
 
          })
-         .then((data)=>{
-            for (const stores of data.elements) {
-               
-             //  con.query("INSERT INTO store (store_id,store_name,store_lat,store_lon) VALUES (stores.id,stores.tags.name,stores.lat,stores.lon");
-                
-               //const listItem = document.createElement("li");
-             //  listItem.textContent=`${product.lat} ${product.lon} ` ;
-             if(stores.tags.name){
-               L.marker([stores.lat,stores.lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+stores.tags.name);}
-              // myList.appendChild(listItem);
-            }
 
+   //Loop on data and create markers on valid data points
+   .then((data)=>{
+      for (const stores of data.elements) {
+         if(stores.tags.name){
+            L.marker([stores.lat,stores.lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+stores.tags.name);
          }
-         )
-         .catch((error) => {
-            const p = document.createElement("p");
-            p.appendChild(document.createTextNode(`Error: ${error.message}`));
-            document.body.insertBefore(p, myList);
-          }); 
+         // myList.appendChild(listItem);
+         }
+
+      })
+      .catch((error) => {
+         const p = document.createElement("p");
+         p.appendChild(document.createTextNode(`Error: ${error.message}`));
+         document.body.insertBefore(p, myList);
+      }); 
+      */
          
           
         
