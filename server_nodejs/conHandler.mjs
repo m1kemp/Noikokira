@@ -52,7 +52,6 @@ function updateSupermarkets(fileName) {
     });
 }
 
-
 function removeSupermarkets(fileName) {
     var filePath = "./uploads/" + fileName;
 
@@ -92,4 +91,82 @@ function removeSupermarkets(fileName) {
         }
     });
 }
-export { sendQuery, updateSupermarkets,removeSupermarkets };
+
+function updateProducts(fileName) {
+    var filePath = "./uploads/" + fileName;
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        var prodData = JSON.parse(data);
+        var prodArray = prodData.products;
+        
+        // Prepare an array to hold values for bulk insert
+        const valuesArray = [];
+
+        for (var i = 0; i < prodArray.length; i++) {
+            var name = prodArray[i].name;
+
+            if (typeof name !== "undefined") {
+                // Push values into the array for bulk insert
+                valuesArray.push([name]);
+            }
+        }
+        
+        //TODO:Add a query for adding a category for the inserted items 
+        //sendQuery()
+
+        // Bulk insert using a single query
+        if (valuesArray.length > 0) {
+            const query = "INSERT INTO item (item_name) VALUES ?";
+            con.query(query, [valuesArray], (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log("Inserted rows: " + result.affectedRows);
+                }
+            });
+        }
+    });
+}
+
+function removeProducts(fileName) {
+    var filePath = "./uploads/" + fileName;
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        var prodData = JSON.parse(data);
+        var prodArray = prodData.products;
+        
+        // Prepare an array to hold values for bulk insert
+        const valuesArray = [];
+
+        for (var i = 0; i < prodArray.length; i++) {
+            var name = prodArray[i].name;
+
+            if (typeof name !== "undefined") {
+                // Push values into the array for bulk insert
+                valuesArray.push([name]);
+            }
+        }
+
+        // Bulk insert using a single query
+        if (valuesArray.length > 0) {
+            const query = "DELETE FROM item WHERE (item_name) IN (?)";
+            con.query(query, [valuesArray], (err, result) => {
+                if (err) {
+                    console.log("db error");
+                    console.error(err);
+                } else {
+                    console.log("Deleted rows: " + result.affectedRows);
+                }
+            });
+        }
+    });
+}
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts };

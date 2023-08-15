@@ -35,10 +35,11 @@ CREATE TABLE item_category(
 
 CREATE TABLE item(
     item_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    category_id SMALLINT UNSIGNED NOT NULL,
+    #category_id SMALLINT UNSIGNED NOT NULL,
     item_name VARCHAR(30) NOT NULL,
-    PRIMARY KEY (item_id, category_id),
-    CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    #PRIMARY KEY (item_id, category_id),
+    PRIMARY KEY (item_id)
+    #CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 

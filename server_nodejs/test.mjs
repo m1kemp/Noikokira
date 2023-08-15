@@ -22,7 +22,7 @@ con.query("select * from user",(err,result,fields)=>{
     if (err){
         return console.log(err);
     }
-    else return console.log(result);
+    //else return console.log(result);
 })
 
 export {con}

@@ -1,7 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
-import {sendQuery, updateSupermarkets, removeSupermarkets} from "./conHandler.mjs"
+import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts} from "./conHandler.mjs"
 
 import fileUpload from "express-fileupload";
 import cors from "cors"
@@ -130,6 +130,12 @@ router.post("/database/update", async (req, res) => {
     }
     if(req.body.type == "deleteSuper"){
       removeSupermarkets(req.body.fileName)
+    }
+    if(req.body.type == "addProd"){
+      updateProducts(req.body.fileName)
+    }
+    if(req.body.type == "deleteProd"){
+      removeProducts(req.body.fileName)
     }
 
 
