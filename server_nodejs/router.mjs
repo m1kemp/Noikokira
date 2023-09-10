@@ -179,7 +179,7 @@ router.post("/database/update", async (req, res) => {
 
 
 router.post("/user/credentials", async(req, res)=>{
-  res.json({message: "333"});
+  res.json({message: usernameglobal});
 });
 
 router.post("/database/get", async (req, res) => {
