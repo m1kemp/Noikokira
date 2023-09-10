@@ -11,7 +11,7 @@ import _ from "lodash";
 
 const router=express.Router()
 
-
+var usernameglobal=0;
 router.get("/",(req,res)=>{
     res.render("admin_user")
 })
@@ -21,7 +21,7 @@ router.get("/login_admin",(req,res)=>{
 })
 router.post("/homepage_admin",(req,res)=>{
     const {username,password}=req.body;
-    con.query("SELECT username,password from admin WHERE username=? and password=?",
+    con.query("SELECT username from admin WHERE username=? and password=?",
     [username,password],(error,result)=>{
         if(error){
             console.log(error);
@@ -40,7 +40,33 @@ router.get("/login",(req,res)=>{
     res.render("login")
 })
 
+router.get("/validation",(req,res)=>{
+  res.render("validation");
+})
 
+router.post("/editProfile",(req,res)=>{
+  const{username,password}=req.body;
+con.query("SELECT email FROM user WHERE password=? and username=?",[password,username],(error,result)=>{
+  if(error){
+    console.log(error);
+  }
+  else if(result.length==0){
+    return res.render("validation",{message:"Wrong information"})
+  }
+  else{
+    const email=result[0].email;
+    res.render("profUserChange",{username:username,password:password,email:email})
+  }
+})
+})
+router.post("/editedHomepage",(req,res)=>{
+  const {username,email,password,oldUsername,oldEmail,oldPassword}=req.body;
+
+   console.log(oldUsername);
+  con.query("UPDATE user SET username=?,email=?,password=? WHERE username=? and email=?",[username,email,password,oldUsername,oldEmail])
+  res.render("maps",{username:username})
+
+})
 
 router.post("/signedup",(req,res)=>{ 
  const {username,email,password}=req.body;
@@ -66,6 +92,7 @@ router.get("/signup",(req,res)=>
 
 router.post("/homepage",(req,res)=>{
 const {username,password}=req.body;
+usernameglobal=username;
 con.query("SELECT username,password from user WHERE username=? and password=?",
 [username,password],(error,result)=>{
     if(error){

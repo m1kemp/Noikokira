@@ -1,0 +1,69 @@
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Αλλαγή στοιχείων</title>
+       
+            <script src="/javascript/editProf.js"></script>
+         <link rel="stylesheet" href="/css/profUserChange.css">
+            <script src="../../router.mjs" defer> </script>
+         
+    </head>
+
+<body>
+
+    <div class="container-xl px-4 mt-4">
+      
+      
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div>
+                    <div class="card-header">Account Details</div>
+
+                    <div class="card-body">
+                        <form action="/editedHomepage" method="post">
+                            <!-- Form Group (username)-->
+                            <div class="mb-3">
+                                <label  for="username">Username (how your name will appear to other users on the site)</label>
+                                <input class="form-control" id="username" name="username" type="username" placeholder="Enter your username"required value={{#if username}} {{username}} {{/if}}>
+                            
+                            </div>
+                           
+                            
+                            <!-- Form Group (email address)-->
+                            <div class="mb-3">
+                                <label for="email">Email address</label>
+                                <input class="form-control" id="email" type="email" name="email"placeholder="Enter your email address" required value={{#if email}} {{email}} {{/if}}>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                               
+                                <div>
+                                    <label for="password">password</label>
+                                    <input class="form-control" id="password" type="password" name="password" placeholder="enter your password" required value={{#if password}} {{password}} {{/if}}>
+                               
+                                   <input type="hidden"  name="oldUsername" required value={{#if username}} {{username}} {{/if}}>
+                                    <input type="hidden"  name="oldEmail" required value={{#if email}} {{email}} {{/if}}>
+                                     <input type="hidden"  name="oldPassword" required value={{#if password}} {{password}} {{/if}}>
+                            <!-- Save changes button-->
+                            <button class="btn btn-primary" type="submit">Save changes</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+
+
