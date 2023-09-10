@@ -27,5 +27,5 @@ window.onload = function(){
 
     //Set password
     const passField=document.getElementById("password");
-    passField.setAttribute("value",email);
+    passField.setAttribute("value",password);
 }

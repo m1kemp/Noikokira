@@ -326,7 +326,23 @@ function addData(message,type,bodyType) {
      one = true;
    });
  }
- 
+ const offerLink = document.getElementById("offer");
+ offerLink.addEventListener("click",function(event){
+   event.preventDefault();
+   alert("Generate User Clicked")
+ })
+
+
+const genLink = document.getElementById('gen');
+
+
+genLink.addEventListener('click', function(event) {
+
+  event.preventDefault();
+
+  alert('Generate User clicked!'); 
+});
+
  const addButton = document.getElementById("addPr");
  addButton.addEventListener("click", () => addData("Add Products",1,"addProd"));
  
@@ -345,6 +361,7 @@ function addData(message,type,bodyType) {
 
  const addButton6 = document.getElementById("deleteOffer");
  addButton6.addEventListener("click", () => addData("Delete Offers",6,"deleteOffer"));
+
 
 
 

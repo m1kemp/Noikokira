@@ -194,7 +194,9 @@ router.post("/database/update", async (req, res) => {
 
 
 router.post("/user/credentials", async(req, res)=>{
+
   res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password]});
+    
 });
 
 router.post("/database/get", async (req, res) => {
