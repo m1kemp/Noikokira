@@ -11,7 +11,20 @@ import _ from "lodash";
 
 const router=express.Router()
 
-var usernameglobal=0;
+
+
+//User class
+class User{
+  constructor(email, username, password){
+    this.email = email;
+    this.username = username;
+    this.password = password;
+  }
+}
+
+//Create a logged user object
+const loggedUser = new User("blank", "blank", "blank");
+
 router.get("/",(req,res)=>{
     res.render("admin_user")
 })
@@ -93,7 +106,9 @@ router.get("/signup",(req,res)=>
 
 router.post("/homepage",(req,res)=>{
 const {username,password}=req.body;
-usernameglobal=username;
+//loggedUser.email = email;
+loggedUser.username = username;
+loggedUser.password = password;
 con.query("SELECT username,password from user WHERE username=? and password=?",
 [username,password],(error,result)=>{
     if(error){
@@ -179,7 +194,7 @@ router.post("/database/update", async (req, res) => {
 
 
 router.post("/user/credentials", async(req, res)=>{
-  res.json({message: usernameglobal});
+  res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password]});
 });
 
 router.post("/database/get", async (req, res) => {

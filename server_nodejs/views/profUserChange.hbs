@@ -40,15 +40,18 @@
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
                                 <label for="email">Email address</label>
-                                <input class="form-control" id="email" type="email" name="email"placeholder="Enter your email address" required value={{#if email}} {{email}} {{/if}}>
+                                <!--<input class="form-control" id="email" type="email" name="email"placeholder="Enter your email address" required value={{#if email}} {{email}} {{/if}}>
+                                -->
+                                <input class="form-control" id="email" type="email" name="email"placeholder="Enter your email address">
                             </div>
                             <!-- Form Row-->
                             <div class="row gx-3 mb-3">
                                
                                 <div>
                                     <label for="password">password</label>
-                                    <input class="form-control" id="password" type="password" name="password" placeholder="enter your password" required value={{#if password}} {{password}} {{/if}}>
-                               
+                                    <!--<input class="form-control" id="password" type="password" name="password" placeholder="enter your password" required value={{#if password}} {{password}} {{/if}}>
+                                    -->
+                                    <input class="form-control" id="password" type="password" name="password" placeholder="enter your password">
                                    <input type="hidden"  name="oldUsername" required value={{#if username}} {{username}} {{/if}}>
                                     <input type="hidden"  name="oldEmail" required value={{#if email}} {{email}} {{/if}}>
                                      <input type="hidden"  name="oldPassword" required value={{#if password}} {{password}} {{/if}}>
