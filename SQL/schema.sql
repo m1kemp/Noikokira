@@ -26,20 +26,20 @@ CREATE TABLE admin(
     PRIMARY KEY(admin_id)
 );
 
-
+DROP TABLE IF EXISTS item_category;
 CREATE TABLE item_category(
     category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    category_name VARCHAR(20) NOT NULL,
+    category_name VARCHAR(50) NOT NULL,
     PRIMARY KEY (category_id)
 );
 
+DROP TABLE IF EXISTS item;
 CREATE TABLE item(
     item_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    #category_id SMALLINT UNSIGNED NOT NULL,
-    item_name VARCHAR(30) NOT NULL,
-    #PRIMARY KEY (item_id, category_id),
-    PRIMARY KEY (item_id)
-    #CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    category_id SMALLINT UNSIGNED NOT NULL,
+    item_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (item_id),
+    CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
@@ -49,14 +49,6 @@ CREATE TABLE store(
     store_lat DOUBLE NOT NULL,
     store_lon DOUBLE NOT NULL,
     PRIMARY KEY(store_id)
-);
-
-CREATE TABLE store_inventory(
-    inventory_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    store_id MEDIUMINT UNSIGNED NOT NULL,
-    item_id MEDIUMINT UNSIGNED NOT NULL,
-    PRIMARY KEY (inventory_id)
-    #TODO: Add foreign key constraint to store_id ans item_id
 );
 
 CREATE TABLE offer(

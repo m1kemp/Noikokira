@@ -157,7 +157,7 @@ function removeProducts(fileName) {
 
         // Bulk insert using a single query
         if (valuesArray.length > 0) {
-            const query = "DELETE FROM item WHERE (item_name) IN (?)";
+            const query = "DELETE FROM item WHERE (item_name) IN ?";
             con.query(query, [valuesArray], (err, result) => {
                 if (err) {
                     console.log("db error");

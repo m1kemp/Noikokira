@@ -5,4 +5,5 @@ CALL createUser('testUser', 'testUser', 'testUser');
 
 CALL updateUser(1,'changeEmail', 'usadasdrnm', 'pass');
 
-SELECT * FROM user;
+SELECT * FROM admin;
+
