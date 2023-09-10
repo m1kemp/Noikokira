@@ -40,8 +40,8 @@ router.get("/login",(req,res)=>{
     res.render("login")
 })
 
-router.get("/validation",(req,res)=>{
-  res.render("validation");
+router.get("/profUserChange",(req,res)=>{
+  res.render("profUserChange");
 })
 
 router.post("/editProfile",(req,res)=>{
@@ -60,9 +60,10 @@ con.query("SELECT email FROM user WHERE password=? and username=?",[password,use
 })
 })
 router.post("/editedHomepage",(req,res)=>{
+  res.render("profUserChange",{username:username,password:password,email:email})
   const {username,email,password,oldUsername,oldEmail,oldPassword}=req.body;
 
-   console.log(oldUsername);
+  console.log(oldUsername);
   con.query("UPDATE user SET username=?,email=?,password=? WHERE username=? and email=?",[username,email,password,oldUsername,oldEmail])
   res.render("maps",{username:username})
 
@@ -174,6 +175,11 @@ router.post("/database/update", async (req, res) => {
   }catch(err){
     res.status(500).send(err)
   }
+});
+
+
+router.post("/user/credentials", async(req, res)=>{
+  res.json({message: "333"});
 });
 
 router.post("/database/get", async (req, res) => {
