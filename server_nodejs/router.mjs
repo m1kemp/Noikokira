@@ -57,29 +57,10 @@ router.get("/profUserChange",(req,res)=>{
   res.render("profUserChange");
 })
 
-router.post("/editProfile",(req,res)=>{
-  const{username,password}=req.body;
-con.query("SELECT email FROM user WHERE password=? and username=?",[password,username],(error,result)=>{
-  if(error){
-    console.log(error);
-  }
-  else if(result.length==0){
-    return res.render("validation",{message:"Wrong information"})
-  }
-  else{
-    const email=result[0].email;
-    res.render("profUserChange",{username:username,password:password,email:email})
-  }
-})
-})
-router.post("/editedHomepage",(req,res)=>{
-  res.render("profUserChange",{username:username,password:password,email:email})
-  const {username,email,password,oldUsername,oldEmail,oldPassword}=req.body;
 
-  console.log(oldUsername);
-  con.query("UPDATE user SET username=?,email=?,password=? WHERE username=? and email=?",[username,email,password,oldUsername,oldEmail])
-  res.render("maps",{username:username})
-
+router.post("/updateUser",(req,res)=>{
+  //Make code to update user
+  res.render("maps",{username:loggedUser.username})
 })
 
 router.post("/signedup",(req,res)=>{ 
@@ -106,17 +87,16 @@ router.get("/signup",(req,res)=>
 
 router.post("/homepage",(req,res)=>{
 const {username,password}=req.body;
-//loggedUser.email = email;
 loggedUser.username = username;
 loggedUser.password = password;
-con.query("SELECT username,password from user WHERE username=? and password=?",
+con.query("SELECT username,password,email from user WHERE username=? and password=?",
 [username,password],(error,result)=>{
     if(error){
         console.log(error);
     }
     else if(result.length>0){
-
-return res.render("maps",{username:username})
+      loggedUser.email = result[0].email;
+      return res.render("maps",{username:username})
     }
     else{
         res.render("login",{message:"The account does not exist"})
