@@ -1,4 +1,7 @@
 //import { update } from "lodash";
+
+//import { method } from "lodash";
+
 /*
 // Add products
 const addButton=document.getElementById("addPr");
@@ -329,7 +332,8 @@ function addData(message,type,bodyType) {
  const offerLink = document.getElementById("offer");
  offerLink.addEventListener("click",function(event){
    event.preventDefault();
-   alert("Generate User Clicked")
+   const endpoint = "/offer/generate";
+   fetch(endpoint, {method: "post"});
  })
 
 

@@ -1,7 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
-import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts} from "./conHandler.mjs"
+import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts, genOffers} from "./conHandler.mjs"
 
 import fileUpload from "express-fileupload";
 import cors from "cors"
@@ -228,6 +228,13 @@ router.post("/database/get", async (req, res) => {
     res.status(500).send(err)
   }
 })
+
+
+router.post("/offer/generate", async(req, res)=>{
+
+  genOffers();
+    
+});
 
 export{router}
 

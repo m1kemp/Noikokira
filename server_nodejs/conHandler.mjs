@@ -104,14 +104,18 @@ function updateProducts(fileName) {
         var prodArray = prodData.products;
         
         // Prepare an array to hold values for bulk insert
-        const valuesArray = [];
+        const nameArray = [];
+        const catArray = [];
 
         for (var i = 0; i < prodArray.length; i++) {
             var name = prodArray[i].name;
+            var category = prodArray[i].category;
 
             if (typeof name !== "undefined") {
                 // Push values into the array for bulk insert
-                valuesArray.push([name]);
+                nameArray.push([name]);
+                catArray.push([category]);
+
             }
         }
         
@@ -119,15 +123,18 @@ function updateProducts(fileName) {
         //sendQuery()
 
         // Bulk insert using a single query
-        if (valuesArray.length > 0) {
-            const query = "INSERT INTO item (item_name) VALUES ?";
-            con.query(query, [valuesArray], (err, result) => {
-                if (err) {
-                    console.error(err);
-                } else {
-                    console.log("Inserted rows: " + result.affectedRows);
-                }
-            });
+        if (nameArray.length > 0) {
+            //const query = "INSERT INTO item (item_name) VALUES ?";
+            for(var j = 0; j < nameArray.length; j++){
+                const query ="CALL addProduct(?, ?)"
+                con.query(query, [nameArray[j], catArray[j]], (err, result) => {
+                    if (err) {
+                        console.error(err);
+                    } //else {
+                        //console.log("Inserted rows: " + result.affectedRows);
+                    //}
+                });
+            }
         }
     });
 }
@@ -169,4 +176,110 @@ function removeProducts(fileName) {
         }
     });
 }
-export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts };
+
+
+function genOffers(){
+    let itemsResult = [];
+    let userResult = [];
+    let storeResult = [];
+
+    const offerNum =10;     //Number of offers to be generated
+    let randUser = [];
+    let randItem = [];
+    let randStore = [];
+    
+    let getRandItem = () => {
+    return new Promise((res, rej) => {
+    //Get item id's
+    con.query("SELECT item_id FROM item", (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            for(var i = 0; i < result.length; i++){
+                itemsResult.push(result[i].item_id);
+            }
+            for(var i = 0; i<offerNum; i++){
+                var itemNum = Math.floor(Math.random()*itemsResult.length);
+                randItem.push(itemsResult[itemNum]);
+                //console.log(itemsResult[itemNum]);
+            }
+            return res(result);
+        }
+    });
+    });
+    }
+
+    let getRandUser = () => {
+    return new Promise((res, rej) => {
+    //Get user id's
+    con.query("SELECT user_id FROM user", (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            for(var i = 0; i < result.length; i++){
+                userResult.push(result[i].user_id);
+            }
+            for(var i = 0; i<offerNum; i++){
+                var usrNum = Math.floor(Math.random()*userResult.length);
+                randUser.push(userResult[usrNum]);
+                //console.log(userResult[usrNum]);
+            }
+            return res(result);
+        }
+    });
+    });
+    }
+
+    let getRandStore = () => {
+    return new Promise((res, rej) => {
+    //Get store id's
+    con.query("SELECT store_id FROM store", (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            for(var i = 0; i < result.length; i++){
+                storeResult.push(result[i].store_id);
+            }
+            for(var i = 0; i<offerNum; i++){
+                var storeNum = Math.floor(Math.random()*storeResult.length);
+                randStore.push(storeResult[storeNum]);
+                //console.log(storeResult[storeNum]);
+            }
+            return res(result);
+        }
+    });
+    });
+    };
+
+    async function pushRand(){
+    const itemP = getRandItem();
+    const userP = getRandUser();
+    const storeP = getRandStore();
+
+    const promises = [itemP, userP, storeP];
+    await Promise.all(promises);
+    const values = [];
+    for(var i = 0; i < offerNum; i++){
+        values.push([0, 0, randItem[i], randStore[i], randUser[i]])
+    }
+    //Push the random offers to the database
+    const query = "INSERT INTO offer (likes, dislikes, item_id, store_id, user_id) VALUES ?";
+    con.query(query, [values], (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            console.log("Added offers: " + result.affectedRows);
+        }
+    });
+    }
+    pushRand();
+
+
+
+}
+
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers };

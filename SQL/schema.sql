@@ -51,6 +51,7 @@ CREATE TABLE store(
     PRIMARY KEY(store_id)
 );
 
+DROP TABLE IF EXISTS offer;
 CREATE TABLE offer(
     offer_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     likes SMALLINT NOT NULL,
@@ -61,5 +62,5 @@ CREATE TABLE offer(
     PRIMARY KEY(offer_id),
     CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_offer_store FOREIGN KEY (store_id) REFERENCES store(store_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE RESTRICT #Offer cant be transfered!
+    CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
