@@ -2,6 +2,9 @@
 
 var map = L.map('map').setView([38.246639,21.734573],40);
 
+
+let filteredSuper;
+
 var osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 })
@@ -97,7 +100,10 @@ function find(message){
       const controller = new AbortController();
       const id = setTimeout(()=> controller.abort(), 2000);
       await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
-         .then((response) => response.json())
+         .then((r)=>r.json()).then((res) => {
+            var jsonData = res.message;
+            //Repeat above loop amd copy the code to the button event
+         })
      
          .catch((error) => {
             console.error("Error:", error);

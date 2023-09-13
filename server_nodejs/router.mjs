@@ -221,11 +221,13 @@ router.post("/database/search", async (req, res) => {
   const type = req.body.type;
   if(type == "super"){
     //Search supermarkets
-    searchSuper(term);
+    let result = searchSuper(term);
+    res.json({message: result});
   }
   else if(type == "prod"){
     //search products
-    searchProd(term);
+    let result = searchProd(term);
+    res.json({message: result});
   }
 
  
