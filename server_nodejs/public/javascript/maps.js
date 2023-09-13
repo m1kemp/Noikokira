@@ -3,14 +3,12 @@
 var map = L.map('map').setView([38.246639,21.734573],40);
 
 
-let filteredSuper;
+let markers = [];
 
 var osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 })
 osm.addTo(map);
-
-L.marker([ 38.245985579010124, 21.733685269781077]).addTo(map).bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
 
 
 var redIcon = L.icon({
@@ -29,10 +27,18 @@ function getData(type){
    .then((r)=>r.json()).then((res) => {
       var jsonData = res.message;
       for (let i = 0; i < jsonData.length; i++){
-         L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+jsonData[i].store_name);
+         var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name).addTo(map);
+         markers.push(marker);
       }
    })
    .catch(err => console.error(err))
+}
+
+function clearAllMarkers(){
+   for(var i = 0; i < markers.length; i++){
+      markers[i].remove();
+   }
+   markers = [];
 }
 
 getData("super");
@@ -101,8 +107,14 @@ function find(message){
       const id = setTimeout(()=> controller.abort(), 2000);
       await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
          .then((r)=>r.json()).then((res) => {
-            var jsonData = res.message;
+            var jsonData = res.message[0];
             //Repeat above loop amd copy the code to the button event (below)
+            console.log(jsonData[0]);
+            clearAllMarkers();
+            for(var i = 0; i<jsonData.length; i++){
+               var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name + " Product: " + jsonData[i].item_name).addTo(map);
+               markers.push(marker);
+            }
          })
      
          .catch((error) => {
@@ -132,11 +144,15 @@ function find(message){
       formData.append("term", userInput);
 
       fetch(endpoint, {method: "POST", body: formData})
-         .then((response) => response.json())
-     
-         .catch((error) => {
-            console.error("Error:", error);
-         });
+      .then((r)=>r.json()).then((res) => {
+         var jsonData = res.message;
+         //Repeat above loop amd copy the code to the button event (below)
+         console.log(jsonData);
+      })
+  
+      .catch((error) => {
+         console.error("Error:", error);
+      });
    }); 
 }
          

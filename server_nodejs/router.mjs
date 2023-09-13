@@ -219,15 +219,19 @@ router.post("/offer/generate", async(req, res)=>{
 router.post("/database/search", async (req, res) => {
   const term = req.body.term;
   const type = req.body.type;
-  if(type == "super"){
-    //Search supermarkets
-    let result = searchSuper(term);
-    res.json({message: result});
+  if(type == "super"){//Search supermarket
+    const superP = searchSuper(term);
+    await Promise.all([superP]).then((rez)=>{
+      res.json({message: rez});
+    });
   }
   else if(type == "prod"){
     //search products
-    let result = searchProd(term);
-    res.json({message: result});
+    const prodP = searchProd(term);
+    await Promise.all([prodP]).then((rez)=>{
+      res.json({message: rez});
+    });
+
   }
 
  

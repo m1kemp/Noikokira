@@ -183,7 +183,7 @@ function genOffers(){
     let userResult = [];
     let storeResult = [];
 
-    const offerNum =10;     //Number of offers to be generated
+    const offerNum =200;     //Number of offers to be generated
     let randUser = [];
     let randItem = [];
     let randStore = [];
@@ -303,38 +303,40 @@ function genUsers(){
 
 }
 
-
-function searchSuper(term){
+let searchSuper = (term) => {
+return new Promise((res, rej) => {
+//async function searchSuper(term){
     term = term+"%";
-    let res;
-    const query = "SELECT store_name FROM store WHERE store_name LIKE ?";
+    const query = "SELECT store_name, store_lat, store_lon FROM store WHERE store_name LIKE ?";
     con.query(query, [term], (err, result) => {
         if (err) {
             console.log("db error");
             console.error(err);
-        } else {
-            res = result;
-            console.log("Results: ", result);
+        } else{
+            //console.log("Results: ", res);
+            res(result);
         }
     });
-    return res
 
+});
 }
 
-function searchProd(term){
-    term = term+"%";
-    let res;
-    const query = "SELECT item_name FROM item WHERE item_name LIKE ?";
-    con.query(query, [term], (err, result) => {
-        if (err) {
-            console.log("db error");
-            console.error(err);
-        } else {
-            res = result;
-            console.log("Results: ", result);
-        }
+let searchProd = (term) => {
+    return new Promise((res, rej) => {
+    //async function searchSuper(term){
+        term = term+"%";
+        const query = "SELECT store.store_name, store.store_lat, store_lon, item.item_name FROM (store INNER JOIN offer ON offer.store_id = store.store_id) INNER JOIN item ON offer.item_id = item.item_id WHERE item.item_name LIKE ?";
+        con.query(query, [term], (err, result) => {
+            if (err) {
+                console.log("db error");
+                console.error(err);
+            } else{
+                //console.log("Results: ", res);
+                res(result);
+            }
+        });
+    
     });
-    return res
-}
+    }
 
 export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers };
