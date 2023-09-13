@@ -102,7 +102,7 @@ function find(message){
       await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
          .then((r)=>r.json()).then((res) => {
             var jsonData = res.message;
-            //Repeat above loop amd copy the code to the button event
+            //Repeat above loop amd copy the code to the button event (below)
          })
      
          .catch((error) => {
