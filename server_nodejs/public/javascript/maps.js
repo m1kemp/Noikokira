@@ -17,60 +17,122 @@ var redIcon = L.icon({
 
    
    //Fetch data from backend
-   function getData(type){
+function getData(type){
+   var formData = new FormData();
+   const endpoint = "/database/get";
+   formData.append("type", type);
+
+   fetch(endpoint, {method: "POST", body: formData})
+   .then((r)=>r.json()).then((res) => {
+      var jsonData = res.message;
+      for (let i = 0; i < jsonData.length; i++){
+         L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+jsonData[i].store_name);
+      }
+   })
+   .catch(err => console.error(err))
+}
+
+getData("super");
+let formCreated = false;
+const marketButton= document.getElementById("supermarkets");
+marketButton.addEventListener("click",()=> {
+   if(!formCreated)
+   find("Search Supermarkets")
+   formCreated=true;
+});
+
+const productButton=document.getElementById("products");
+productButton.addEventListener("click",()=>{
+   if(!formCreated){
+      find("Search Products")
+      formCreated=true;
+   }
+});
+
+function find(message){
+   const node=document.createElement("p");
+   node.setAttribute("id","superText");
+        
+   const textNode=document.createTextNode(` ${message}`);
+
+   node.appendChild(textNode);
+
+   document.getElementById("finder").appendChild(node);
+
+   const form=document.createElement("form");
+   const input=document.createElement("input");
+   input.setAttribute("type","search");
+   input.setAttribute("id","superInput");
+   const button=document.createElement("input");
+   button.setAttribute("type","submit");
+   button.setAttribute("id","superButton");
+   button.setAttribute("value","search");
+
+      
+
+      
+   form.appendChild(input);
+   form.appendChild(button);
+      
+   document.getElementById("finder").appendChild(form);
+
+   //Trigger event on user type change
+   document.getElementById("superInput").oninput = async function(){
+      // Get the user's input value
+      const userInput = input.value;
+ 
+      // Now you can use userInput for further processing or submit it to the server
+      // Example: Send userInput to the server using fetch or AJAX
+      endpoint = "/database/search";
+
       var formData = new FormData();
-      const endpoint = "/database/get";
+      if(message == "Search Supermarkets"){
+         //Send super to get supermarkets
+         formData.append("type", "super");
+      }else if(message == "Search Products"){
+         formData.append("type", "prod");
+      }
 
-      formData.append("type", type);
-
-      fetch(endpoint, {method: "POST", body: formData})
-      .then((r)=>r.json()).then((res) => {
-         var jsonData = res.message;
-         for (let i = 0; i < jsonData.length; i++){
-            L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+jsonData[i].store_name);
-         }
-      })
-      .catch(err => console.error(err))
+      formData.append("term", userInput);
+      const controller = new AbortController();
+      const id = setTimeout(()=> controller.abort(), 2000);
+      await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
+         .then((response) => response.json())
+     
+         .catch((error) => {
+            console.error("Error:", error);
+         });
+         clearTimeout(id);
    }
 
-   getData("super");
+   form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+ 
+      // Get the user's input value
+      const userInput = input.value;
+ 
+      // Now you can use userInput for further processing or submit it to the server
+      // Example: Send userInput to the server using fetch or AJAX
+      endpoint = "/database/search";
 
-   /*
-   //Data file name
-   const jasonPath="./jason/supermarket.json"
-   
-   //For supermarkets
-   const myList = document.querySelector("ul[class='supermarkets']");
+      var formData = new FormData();
+      if(message == "Search Supermarkets"){
+         //Send super to get supermarkets
+         formData.append("type", "super");
+      }else if(message == "Search Products"){
+         formData.append("type", "prod");
+      }
 
-   //Fetch file from server
-   fetch(jasonPath)
-   .then((response) =>{
-        if (!response.ok) {
-           throw new Error(`HTTP error, status = ${response.status}`);
-        }
+      formData.append("term", userInput);
 
-             return response.json();
-
-         })
-
-   //Loop on data and create markers on valid data points
-   .then((data)=>{
-      for (const stores of data.elements) {
-         if(stores.tags.name){
-            L.marker([stores.lat,stores.lon],{icon:redIcon}).addTo(map).bindPopup('Supermarket'+' '+stores.tags.name);
-         }
-         // myList.appendChild(listItem);
-         }
-
-      })
-      .catch((error) => {
-         const p = document.createElement("p");
-         p.appendChild(document.createTextNode(`Error: ${error.message}`));
-         document.body.insertBefore(p, myList);
-      }); 
-      */
+      fetch(endpoint, {method: "POST", body: formData})
+         .then((response) => response.json())
+     
+         .catch((error) => {
+            console.error("Error:", error);
+         });
+   }); 
+}
          
-          
-        
 
          

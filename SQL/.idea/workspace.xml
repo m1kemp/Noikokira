@@ -6,9 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="4ca2b821-2f28-4ba5-9cab-415a10035d76" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc/storage_v2/_src_/schema/noikokira.OWxdLw.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc/storage_v2/_src_/schema/noikokira.OWxdLw.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc/storage_v2/_src_/schema/noikokira.OWxdLw.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e1543964-7a22-43b6-9b96-a406a71a0ccc/storage_v2/_src_/schema/noikokira.OWxdLw.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/insert.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mixalhs 1.35.05 PM.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/conHandler.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/conHandler.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/handlebars" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/mime" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/nodemon" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/nodetouch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/nopt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/semver" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/node_modules/.bin/uglifyjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/public/css/maps.css" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/public/css/maps.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/public/javascript/editProf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/public/javascript/editProf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/public/javascript/home_admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/public/javascript/home_admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/public/javascript/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/public/javascript/maps.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/router.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/router.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/test.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/test.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/uploads/products_and_categories.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/uploads/products_and_categories.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/uploads/supermarket.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/uploads/supermarket.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/views/homepage_admin.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/views/homepage_admin.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server_nodejs/views/maps.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/../server_nodejs/views/maps.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -20,8 +20,9 @@ href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
     <a class="navbar-brand" href="#"><h1>MyBucket</h1> {{#if username}} {{username}} {{/if}}</a>
     <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Supermarkets</a> </li>
-        <li class="nav-item"> <a class="nav-link" href="#">Products</a> </li>
+          <a class="nav-link" id="supermarkets" href="#">Supermarkets</a> </li>
+        <li class="nav-item"> 
+          <a class="nav-link" id="products"href="#">Products</a> </li>
          <li class="nav-item">
            <!--<li class="nav-item"> <a class="nav-link" href='/validation'>Edit Profile</a> </li>-->
            <li class="nav-item"> <a class="nav-link" href="/profUserChange">Edit Profile</a> </li>
@@ -30,14 +31,18 @@ href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
     </ul>
 </nav>
 </div>
-
-    <div id="map"></div>
-    <h1>Fetch json example</h1>
+  <div class="container"></div>
+    <div id="map">
+    </div>
+    
+    <div id="finder">
+    
+    </div>
   <ul class="supermarkets"> 
     
   </ul>
 
-
+</div>
 
 
 

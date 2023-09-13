@@ -282,4 +282,59 @@ function genOffers(){
 
 }
 
-export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers };
+
+function genUsers(){
+    var userNum = 10;
+    let userList = [];
+
+    for(var i = 0; i < userNum; i++){
+        userList.push(["testUser" + i, "testUser" + i, "testUser" + i])
+    }
+    for(var j = 0; j<userNum; j++){
+        const query = "CALL createUser(?)";
+        con.query(query, [userList[j]], (err, result) => {
+            if (err) {
+                console.log("db error");
+                console.error(err);
+            }
+        });
+    }
+    console.log("Added users: " + userNum);
+
+}
+
+
+function searchSuper(term){
+    term = term+"%";
+    let res;
+    const query = "SELECT store_name FROM store WHERE store_name LIKE ?";
+    con.query(query, [term], (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            res = result;
+            console.log("Results: ", result);
+        }
+    });
+    return res
+
+}
+
+function searchProd(term){
+    term = term+"%";
+    let res;
+    const query = "SELECT item_name FROM item WHERE item_name LIKE ?";
+    con.query(query, [term], (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            res = result;
+            console.log("Results: ", result);
+        }
+    });
+    return res
+}
+
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers };

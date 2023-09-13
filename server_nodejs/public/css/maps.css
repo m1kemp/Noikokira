@@ -1,3 +1,49 @@
-#map { 
+/*#map { 
      width: 40vh;
     height:50vh }
+*/
+.container {
+     position: relative;
+     display: flex;
+     justify-content: flex-end; /* Align the map to the left */
+     align-items: center; /* Vertically center items */
+   }
+   
+   
+  
+   
+   #map {
+     flex:1;
+     width: 40%;
+     height:50%;
+   }
+   
+   #finder {
+     position: absolute;
+     top: 20%;
+     right: 0;
+     margin-right: 600px; /* Add some spacing between the map and heading */
+     /* Add any other CSS properties you need for the heading */
+   }
+   #superText{
+     font-size: 20px;
+   }
+   #superInput{
+     margin-left: 20px;
+   }
+   form input{
+    
+     padding: 7px;
+     border-radius:6px ;
+ }
+     button[type="submit"]{
+          
+          height: 20px;
+          margin-top:10px;
+          background-color: #49c1a2;
+          color: white;
+          font-size: 15px;
+         border: none;
+         margin-left: 0.5em;
+      }
+   

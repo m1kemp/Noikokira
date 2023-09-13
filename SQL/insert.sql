@@ -5,7 +5,7 @@ CALL createUser('testUser', 'testUser', 'testUser');
 
 CALL updateUser(1,'changeEmail', 'usadasdrnm', 'pass');
 
-SELECT * FROM offer;
+SELECT * FROM user;
 
 SELECT store_id FROM store;
 
