@@ -42,6 +42,7 @@ function clearAllMarkers(){
 }
 
 getData("super");
+
 let formCreated = false;
 const marketButton= document.getElementById("supermarkets");
 marketButton.addEventListener("click",()=> {
