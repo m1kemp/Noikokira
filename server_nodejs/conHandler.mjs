@@ -323,7 +323,6 @@ return new Promise((res, rej) => {
 
 let searchProd = (term) => {
     return new Promise((res, rej) => {
-    //async function searchSuper(term){
         term = term+"%";
         const query = "SELECT store.store_name, store.store_lat, store_lon, item.item_name FROM (store INNER JOIN offer ON offer.store_id = store.store_id) INNER JOIN item ON offer.item_id = item.item_id WHERE item.item_name LIKE ?";
         con.query(query, [term], (err, result) => {
@@ -339,4 +338,18 @@ let searchProd = (term) => {
     });
     }
 
-export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers };
+let searchOffer = (sName, lat, lon)=> {
+    return new Promise((res, rej) => {
+        const query = "SELECT item.item_name FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
+        con.query(query, [sName, lat, lon], (err, result) => {
+            if (err) {
+                console.log("db error");
+                console.error(err);
+            } else{
+                res(result);
+            }
+        });
+    });
+}
+
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer };

@@ -6,7 +6,8 @@ const con= mysql.createConnection({
     host:"localhost",
     user:"rootUser",
     password:"rootUser",
-    database:"noikokira"
+    database:"noikokira",
+    multipleStatements: true
 })
 con.connect(function(error){
     if(error){

@@ -16,7 +16,56 @@ var redIcon = L.icon({
    iconSize:[40,40]
 });
 
-   
+
+function createDataForm(dArr){
+   //clear element
+   document.getElementById("finder").innerHTML="";
+   document.getElementById("finder").style.marginRight="500px";
+   const node=document.createElement("p");
+   node.setAttribute("id", "superData");
+   const text=document.createTextNode(dArr[0] + " Offers");
+   node.appendChild(text);
+   document.getElementById("finder").appendChild(node);
+
+   const ulTag = document.createElement("ul");
+
+   endpoint = "/database/search";
+
+   var formData = new FormData();
+   formData.append("type", "offer");
+   formData.append("sName", dArr[0]);
+   formData.append("lat", dArr[1]);
+   formData.append("lon", dArr[2]);
+
+   fetch(endpoint, {method: "POST", body: formData})
+      .then((r)=>r.json()).then((res) => {
+         var jsonData = res.message[0];
+         //Repeat above loop amd copy the code to the button event (below)
+         for(var i = 0; i<jsonData.length; i++){
+            var liTag = document.createElement("li");
+            var linkTag = document.createElement("a");
+            linkTag.href = "https://google.com";
+            linkTag.target = "_blank";
+            linkTag.appendChild(document.createTextNode("Product: " + jsonData[i].item_name + " Price: -"));
+            liTag.appendChild(linkTag);
+            ulTag.appendChild(liTag);
+         }
+         node.appendChild(ulTag);
+      })
+     
+      .catch((error) => {
+         console.error("Error:", error);
+      });
+
+
+}
+
+
+function clickStore(storeName){
+   createDataForm(storeName);
+}
+
+
    //Fetch data from backend
 function getData(type){
    var formData = new FormData();
@@ -27,7 +76,8 @@ function getData(type){
    .then((r)=>r.json()).then((res) => {
       var jsonData = res.message;
       for (let i = 0; i < jsonData.length; i++){
-         var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name).addTo(map);
+         const dArr = [jsonData[i].store_name, jsonData[i].store_lat,jsonData[i].store_lon];
+         var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name).on('click', function(evt){clickStore(dArr);}).addTo(map);
          markers.push(marker);
       }
    })
@@ -48,18 +98,21 @@ const marketButton= document.getElementById("supermarkets");
 marketButton.addEventListener("click",()=> {
    if(!formCreated)
    find("Search Supermarkets")
-   formCreated=true;
+   //formCreated=true;
 });
 
 const productButton=document.getElementById("products");
 productButton.addEventListener("click",()=>{
    if(!formCreated){
       find("Search Products")
-      formCreated=true;
+      //formCreated=true;
    }
 });
 
 function find(message){
+   //Clear element
+   document.getElementById("finder").innerHTML="";
+
    const node=document.createElement("p");
    node.setAttribute("id","superText");
         
@@ -113,7 +166,8 @@ function find(message){
             console.log(jsonData[0]);
             clearAllMarkers();
             for(var i = 0; i<jsonData.length; i++){
-               var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name + " Product: " + jsonData[i].item_name).addTo(map);
+               const dArr = [jsonData[i].store_name, jsonData[i].store_lat, jsonData[i].store_lon];
+               var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name + " Product: " + jsonData[i].item_name).on('click', function(evt){clickStore(dArr);}).addTo(map);
                markers.push(marker);
             }
          })
@@ -146,9 +200,15 @@ function find(message){
 
       fetch(endpoint, {method: "POST", body: formData})
       .then((r)=>r.json()).then((res) => {
-         var jsonData = res.message;
-         //Repeat above loop amd copy the code to the button event (below)
-         console.log(jsonData);
+         var jsonData = res.message[0];
+         var jsonData = res.message[0];
+         console.log(jsonData[0]);
+         clearAllMarkers();
+         for(var i = 0; i<jsonData.length; i++){
+            const dArr = [jsonData[i].store_name, jsonData[i].store_lat,jsonData[i].store_lon];
+            var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name + " Product: " + jsonData[i].item_name).on('click', function(evt){clickStore(dArr);}).addTo(map);
+            markers.push(marker);
+         }
       })
   
       .catch((error) => {
