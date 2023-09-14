@@ -242,6 +242,24 @@ router.post("/user/generate", async (req, res) => {
  
 });
 
+router.get("/admin/viewScore", (req,res)=>  {
+  let username=[];
+  con.query("SELECT username,points,tokens from user  order by points limit 10",
+(error,result)=>{
+    if(error){
+        console.log(error);
+    }
+    else if(result.length>0){
+      
+     
+      console.log(result);}
+      return res.render("viewScore",{usersData:result});
+    
+   
+    })
+
+
+});
 
 
 

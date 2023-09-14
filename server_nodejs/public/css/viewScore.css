@@ -1,0 +1,39 @@
+body{
+background-color:lightblue;
+}
+/* Reset default list styles */
+ul {
+   list-style-type: none;
+   padding: 0;
+ }
+ 
+ /* Style the user data list */
+ ul {
+   margin-top: 20px;
+ }
+ 
+ li {
+   background-color:  #49c1a2;
+   border: 1px solid #ddd;
+   padding: 10px;
+   margin-bottom: 10px;
+   border-radius: 5px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+ }
+ 
+ h1 {
+   font-size: 24px;
+   color: #333;
+ }
+ 
+ /* Style user data properties (username, points, tokens) */
+ li span {
+   font-weight: bold;
+ }
+ 
+ /* Add space between properties */
+ li span:not(:last-child) {
+   margin-right: 10px;
+ }
+ 
