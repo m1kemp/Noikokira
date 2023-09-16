@@ -1,0 +1,38 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.product-details-container {
+   
+   margin-top: 200px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.like-dislike-buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button#like-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+button#dislike-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}

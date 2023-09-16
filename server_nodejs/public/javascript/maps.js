@@ -16,49 +16,85 @@ var redIcon = L.icon({
    iconSize:[40,40]
 });
 
-
-function createDataForm(dArr){
-   //clear element
-   document.getElementById("finder").innerHTML="";
-   document.getElementById("finder").style.marginRight="500px";
-   const node=document.createElement("p");
-   node.setAttribute("id", "superData");
-   const text=document.createTextNode(dArr[0] + " Offers");
-   node.appendChild(text);
-   document.getElementById("finder").appendChild(node);
-
+function createDataForm(dArr) {
+   // Clear element
+   document.getElementById("finder").innerHTML = "";
+   document.getElementById("finder").style.marginRight = "500px";
+   const node = document.createElement("div");
+   node.classList.add("offer-container"); // Apply the offer container style
+ 
+   const titleNode = document.createElement("div");
+   titleNode.classList.add("offer-title"); // Apply the offer title style
+   const titleText = document.createTextNode(dArr[0] + " Offers");
+   titleNode.appendChild(titleText);
+ 
+   node.appendChild(titleNode);
+ 
    const ulTag = document.createElement("ul");
-
+ 
    endpoint = "/database/search";
-
+ 
    var formData = new FormData();
    formData.append("type", "offer");
    formData.append("sName", dArr[0]);
    formData.append("lat", dArr[1]);
    formData.append("lon", dArr[2]);
-
-   fetch(endpoint, {method: "POST", body: formData})
-      .then((r)=>r.json()).then((res) => {
-         var jsonData = res.message[0];
-         //Repeat above loop amd copy the code to the button event (below)
-         for(var i = 0; i<jsonData.length; i++){
-            var liTag = document.createElement("li");
-            var linkTag = document.createElement("a");
-            linkTag.href = "https://google.com";
-            linkTag.target = "_blank";
-            linkTag.appendChild(document.createTextNode("Product: " + jsonData[i].item_name + " Price: -"));
-            liTag.appendChild(linkTag);
-            ulTag.appendChild(liTag);
-         }
-         node.appendChild(ulTag);
-      })
+   
+   fetch(endpoint, { method: "POST", body: formData })
+     .then((r) => r.json())
+     .then((res) => {
+       var jsonData = res.message[0];
+       console.log(jsonData);
+       var button = document.createElement("input");
+       button.setAttribute("type","button")
+       button.setAttribute("id","button");
+       button.setAttribute("value","Create new offer");
+       
      
-      .catch((error) => {
-         console.error("Error:", error);
-      });
+       for (var i = 0; i < jsonData.length; i++) {
+         var liTag = document.createElement("li");
+         var linkTag = document.createElement("a");
+         var price=5;
+        
+           
+
+         var itemName = encodeURIComponent(jsonData[i].item_name);
+         linkTag.href = `/product/detail?itemName=${itemName}&price=${price}`;
+         linkTag.target = "_blank";
+        
+         linkTag.appendChild(
+           document.createTextNode(
+            
+             "Product: " + jsonData[i].item_name + " Price: -" +price
+           )
+         );
+
+         liTag.appendChild(linkTag);
+         ulTag.appendChild(liTag);
+       }
+ 
+       const detailsNode = document.createElement("div");
+       detailsNode.classList.add("offer-details"); // Apply the offer details style
+       detailsNode.appendChild(ulTag);
+       
+ 
+       node.appendChild(detailsNode);
+       node.appendChild(button);
+       document.getElementById("finder").appendChild(node);
+       button.addEventListener("click", () =>{
+         location.href="/offer/create"
+     } );
 
 
-}
+     })
+ 
+     .catch((error) => {
+       console.error("Error:", error);
+     });
+ }
+
+
+
 
 
 function clickStore(storeName){
@@ -217,5 +253,6 @@ function find(message){
    }); 
 }
          
+        
 
          

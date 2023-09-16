@@ -270,8 +270,16 @@ router.get("/admin/viewScore", (req,res)=>  {
 
 });
 
+router.get("/product/detail",(req,res)=>{
 
+  const itemName = req.query.itemName;
+  const price=req.query.price;
+  res.render("productDetails",{itemName:itemName,price:price});
+  })
 
+router.get("/offer/create",(req,res)=>  {
+  res.render("createOffer");
+});
 
 export{router}
 

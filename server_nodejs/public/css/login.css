@@ -60,18 +60,5 @@ width: min-content;
   right:2em;
   inset-block-end: 1.2em;
 }
-#par,#par2,#par3,#par4,#par5,#par6,.par1{
-    text-align: left;
-   margin-left: 25px ;
-}
 
-#but,#but2,#but3,#but4,#but5,#but6,.but1{
-    width: 100%;
-    height: 40px;
-    margin-top:20px;
-    background-color: #49c1a2;
-    color: white;
-    font-size: 18px;
-   border: none;
-   margin-left: 0.5em;
-}
+

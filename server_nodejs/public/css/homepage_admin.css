@@ -1,0 +1,54 @@
+/* Reset some default styles */
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#map { 
+  width: 40vh;
+ height:50vh }
+
+/* Style the map container */
+
+/* Style the file upload container */
+#upFile {
+  position: absolute;
+  top: 20%;
+  right: 0;
+  margin-right: 600px; 
+}
+
+.par1 {
+    font-weight: bold;
+    text-align: left;
+   margin-left: 25px ;
+}
+
+
+
+.but1 {
+  width: 100%;
+  height: 40px;
+  margin-top:20px;
+  background-color: #49c1a2;
+  color: white;
+  font-size: 18px;
+ border: none;
+ margin-left: 0.5em;
+}
+
+.but1:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+

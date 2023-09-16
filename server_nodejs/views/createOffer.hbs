@@ -1,0 +1,24 @@
+
+
+<head>
+    <link rel="stylesheet" href="/css/createOffer.css">
+    <title>Create New Offer</title>
+</head>
+<body>
+    <h1>Create New Offer</h1>
+    <form action="/submit_offer" method="POST">
+
+     <label for="superName">Supermarket Name:</label>
+        <input type="text" id="superName" name="superName" required><br><br>
+
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.1" required><br><br>
+
+        <input type="submit" value="Submit Offer">
+
+    </form>
+</body>
+

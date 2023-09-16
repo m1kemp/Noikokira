@@ -3,7 +3,53 @@
 //import { method } from "lodash";
 
 
+
+//-------------MAP-----------------------
+var map = L.map('map').setView([38.246639,21.734573],40);
+
+let formCreated=false;
+let markers = [];
+
+var osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+})
+osm.addTo(map);
+
+
+var redIcon = L.icon({
+   iconUrl: 'img/red-marker.png',
+   iconSize:[40,40]
+});
+function getData1(type){
+  var formData = new FormData();
+  const endpoint = "/database/get";
+  formData.append("type", type);
+
+  fetch(endpoint, {method: "POST", body: formData})
+  .then((r)=>r.json()).then((res) => {
+     var jsonData = res.message;
+     for (let i = 0; i < jsonData.length; i++){
+        const dArr = [jsonData[i].store_name, jsonData[i].store_lat,jsonData[i].store_lon];
+        var marker = L.marker([jsonData[i].store_lat,jsonData[i].store_lon],{icon:redIcon}).bindPopup('Supermarket'+' '+jsonData[i].store_name).on('click', function(evt){clickStore(dArr);}).addTo(map);
+        markers.push(marker);
+     }
+  })
+  .catch(err => console.error(err))
+}
+
+
+
+
+
+
+
+
+getData1("super");
+
+
+// ----------FUNCTION FOR ADD , DELETE SUPERMARKET ,DATA---------------------
 function addData(message,type,bodyType) {
+   document.getElementById("upFile").innerHTML = "";
    const node = document.createElement("p");
    node.setAttribute("id", `par${type}`);
    node.setAttribute("class", `par1`);
@@ -40,6 +86,7 @@ function addData(message,type,bodyType) {
      document.getElementById(`myFile${type}`).remove();
      document.getElementById(`but${type}`).remove();
      one = true;
+     formCreated=false;
    });
  }
 const offerLink = document.getElementById("offer");
@@ -58,23 +105,45 @@ genLink.addEventListener('click', function(event) {
 });
 
  const addButton = document.getElementById("addPr");
- addButton.addEventListener("click", () => addData("Add Products",1,"addProd"));
+ addButton.addEventListener("click", () =>{
+
+ addData("Add Products",1,"addProd")}
+ 
+ );
+
  
  const addButton2 = document.getElementById("deletePr");
- addButton2.addEventListener("click", () => addData("Delete Products",2,"deleteProd"));
+ addButton2.addEventListener("click", () => {
+
+  addData("Delete Products",2,"deleteProd")}
+
+  );
  
  const addButton3 = document.getElementById("addSuper");
- addButton3.addEventListener("click", () => addData("Add Supermarkets",3,"addSuper"));
+ addButton3.addEventListener("click", () => {
+
+  addData("Add Supermarkets",3,"addSuper")}
+
+);
 
  const addButton4 = document.getElementById("deleteSuper");
- addButton4.addEventListener("click", () => addData("Delete Supermarkets",4,"deleteSuper"));
+ addButton4.addEventListener("click", () => {
+
+    addData("Delete Supermarkets",4,"deleteSuper")}
+  
+    );
 
 
  const addButton5 = document.getElementById("addOffer");
- addButton5.addEventListener("click", () => addData("Add Offers",5,"addOfer"));
+ addButton5.addEventListener("click", () =>{
+
+  addData("Add Offers",5,"addOfer")}
+ );
 
  const addButton6 = document.getElementById("deleteOffer");
- addButton6.addEventListener("click", () => addData("Delete Offers",6,"deleteOffer"));
+ addButton6.addEventListener("click", () =>{
+  addData("Delete Offers",6,"deleteOffer")}
+ );
 
 
 
