@@ -1,7 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
-import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer} from "./conHandler.mjs"
+import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll} from "./conHandler.mjs"
 
 import fileUpload from "express-fileupload";
 import cors from "cors"
@@ -239,6 +239,13 @@ router.post("/database/search", async (req, res) => {
   else if(type == "prod"){
     //search products
     const prodP = searchProd(term);
+    await Promise.all([prodP]).then((rez)=>{
+      res.json({message: rez});
+    });
+  }
+  else if(type == "prodAll"){
+    //search products
+    const prodP = searchProdAll(term);
     await Promise.all([prodP]).then((rez)=>{
       res.json({message: rez});
     });

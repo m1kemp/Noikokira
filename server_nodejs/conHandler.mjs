@@ -307,7 +307,7 @@ let searchSuper = (term) => {
 return new Promise((res, rej) => {
 //async function searchSuper(term){
     term = term+"%";
-    const query = "SELECT store_name, store_lat, store_lon FROM store WHERE store_name LIKE ?";
+    const query = "SELECT store_name, store_lat, store_lon, store_id FROM store WHERE store_name LIKE ?";
     con.query(query, [term], (err, result) => {
         if (err) {
             console.log("db error");
@@ -338,6 +338,23 @@ let searchProd = (term) => {
     });
     }
 
+    let searchProdAll = (term) => {
+        return new Promise((res, rej) => {
+            term = term+"%";
+            const query = "SELECT item_name, item_id FROM item WHERE item_name LIKE ?";
+            con.query(query, [term], (err, result) => {
+                if (err) {
+                    console.log("db error");
+                    console.error(err);
+                } else{
+                    //console.log("Results: ", res);
+                    res(result);
+                }
+            });
+        
+        });
+        }
+
 let searchOffer = (sName, lat, lon)=> {
     return new Promise((res, rej) => {
         const query = "SELECT item.item_name FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
@@ -352,4 +369,4 @@ let searchOffer = (sName, lat, lon)=> {
     });
 }
 
-export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer };
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll };

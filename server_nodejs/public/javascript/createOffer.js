@@ -1,10 +1,17 @@
 const prodForm = document.getElementById("product_name");
 const superForm = document.getElementById("superName");
 
+class selectedOffer{
+   constructor(){
+      this.item_id = "";
+      this.store_id = "";
+      this.price = -1;
+   }
+}
+
 prodForm.oninput = async function(){
     // Get the user's input value
     var message = "Search Products";
-    console.log(message);
     const userInput = prodForm.value;
 
     // Now you can use userInput for further processing or submit it to the server
@@ -16,7 +23,7 @@ prodForm.oninput = async function(){
        //Send super to get supermarkets
        formData.append("type", "super");
     }else if(message == "Search Products"){
-       formData.append("type", "prod");
+       formData.append("type", "prodAll");
     }
 
 
@@ -26,10 +33,19 @@ prodForm.oninput = async function(){
     await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
        .then((r)=>r.json()).then((res) => {
           var jsonData = res.message[0];
-          if(userInput!=""){
+          if(userInput!="" && jsonData[0] != undefined){
             document.getElementById("suggestionProd").innerHTML = jsonData[0].item_name;
+            if(jsonData.length == 1){
+               document.getElementById("suggestionProd").style.color = "green";
+               selectedOffer.item_id = jsonData[0].item_id;
+
+            }else{
+               document.getElementById("suggestionProd").style.color = "black";
+               selectedOffer.item_id = "";
+            }
           }else{
             document.getElementById("suggestionProd").innerHTML = "";
+            selectedOffer.item_id = "";
           }
        })
    
@@ -43,7 +59,6 @@ prodForm.oninput = async function(){
 superForm.oninput = async function(){
     // Get the user's input value
     var message = "Search Supermarkets";
-    console.log(message);
     const userInput = superForm.value;
 
     // Now you can use userInput for further processing or submit it to the server
@@ -65,10 +80,18 @@ superForm.oninput = async function(){
     await fetch(endpoint, {method: "POST", body: formData, timeout: 2000, signal:controller.signal})
        .then((r)=>r.json()).then((res) => {
           var jsonData = res.message[0];
-          if(userInput!=""){
+          if(userInput!="" && jsonData[0] != undefined){
             document.getElementById("suggestionSuper").innerHTML = jsonData[0].store_name;
+            if(jsonData.length == 1){
+               document.getElementById("suggestionSuper").style.color = "green";
+               selectedOffer.store_id = jsonData[0].store_id;
+            }else{
+               document.getElementById("suggestionSuper").style.color = "black";
+               selectedOffer.store_id = "";
+            }
           }else{
             document.getElementById("suggestionSuper").innerHTML = "";
+            selectedOffer.store_id = "";
           }
        })
    
@@ -80,8 +103,24 @@ superForm.oninput = async function(){
  };
 
 
-var button = document.getElementById("submitOffer");
+ const priceInput = document.getElementById("price");
+   priceInput.oninput = function(){
+      //Only accept positive numbers
+      if(priceInput.value <= 0){
+         priceInput.value = 0;
+         priceInput.style.color = "red";
+         selectedOffer.price = 0;
+      }
+      else{
+         priceInput.style.color = "black";
+         selectedOffer.price = priceInput.value;
+      }
+   }
 
+const button = document.getElementById("submitOffer");
 button.addEventListener("click", () =>{
-    console.log(prodForm.getAttribute("value"));  
+   //Check if all the field have been correctly filled
+   if(selectedOffer.item_id != "" && selectedOffer.store_id != "" && selectedOffer.price != 0){
+      console.log("To add offer with store_id: " + selectedOffer.store_id + " item_id: " + selectedOffer.item_id + " price: " + selectedOffer.price);
+   } 
 });
