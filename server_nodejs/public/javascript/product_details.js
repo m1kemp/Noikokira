@@ -12,5 +12,9 @@ var dislike=document.getElementById("dislike-button");
 } );
 
 dislike.addEventListener("click", () =>{
-  
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get('price')
+  //TODO:Add functionality for offer like and dislike
+  console.log(product);
 });

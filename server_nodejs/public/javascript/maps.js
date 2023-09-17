@@ -54,12 +54,14 @@ function createDataForm(dArr) {
        for (var i = 0; i < jsonData.length; i++) {
          var liTag = document.createElement("li");
          var linkTag = document.createElement("a");
-         var price=5;
+         var price=jsonData.price;
         
            
 
          var itemName = encodeURIComponent(jsonData[i].item_name);
-         linkTag.href = `/product/detail?itemName=${itemName}&price=${price}`;
+         var priceComp = encodeURIComponent(jsonData[i].price);
+         var idComp = encodeURIComponent(jsonData[i].item_id);
+         linkTag.href = `/product/detail?itemName=${itemName}&price=${priceComp}&item_id=${idComp}`;
          linkTag.target = "_blank";
         
          linkTag.appendChild(

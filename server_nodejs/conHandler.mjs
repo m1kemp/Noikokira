@@ -357,7 +357,7 @@ let searchProd = (term) => {
 
 let searchOffer = (sName, lat, lon)=> {
     return new Promise((res, rej) => {
-        const query = "SELECT item.item_name FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
+        const query = "SELECT item.item_name, item.item_id, price FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
         con.query(query, [sName, lat, lon], (err, result) => {
             if (err) {
                 console.log("db error");

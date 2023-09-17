@@ -19,6 +19,7 @@ class User{
     this.email = email;
     this.username = username;
     this.password = password;
+    this.user_id;
   }
 }
 
@@ -60,6 +61,11 @@ router.get("/profUserChange",(req,res)=>{
 
 router.post("/updateUser",(req,res)=>{
   //Make code to update user
+  //TODO: Call procedure updateUser with the new credentials and the user id from the loggedUser object
+  //Also update the object loggedUser
+  loggedUser.username = "The new username";
+  loggedUser.password = "The new password";
+  loggedUser.email = "The new email";
   res.render("maps",{username:loggedUser.username})
 })
 
@@ -89,13 +95,14 @@ router.post("/homepage",(req,res)=>{
 const {username,password}=req.body;
 loggedUser.username = username;
 loggedUser.password = password;
-con.query("SELECT username,password,email from user WHERE username=? and password=?",
+con.query("SELECT username,password,email, user_id from user WHERE username=? and password=?",
 [username,password],(error,result)=>{
     if(error){
         console.log(error);
     }
     else if(result.length>0){
       loggedUser.email = result[0].email;
+      loggedUser.user_id = result[0].user_id;
       return res.render("maps",{username:username})
     }
     else{
