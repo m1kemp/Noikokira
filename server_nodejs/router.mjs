@@ -160,6 +160,14 @@ router.post("/database/update", async (req, res) => {
     if(req.body.type == "deleteProd"){
       removeProducts(req.body.fileName)
     }
+    if(req.body.type == "prodLike"){ //FINISH THIS
+      const query = "UPDATE offer SET likes = likes + 1 WHERE "
+      con.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    }
 
 
     res.send({

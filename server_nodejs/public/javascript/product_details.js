@@ -10,3 +10,7 @@ var dislike=document.getElementById("dislike-button");
     like.appendChild(node)
 
 } );
+
+dislike.addEventListener("click", () =>{
+  
+});
