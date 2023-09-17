@@ -122,5 +122,6 @@ button.addEventListener("click", () =>{
    //Check if all the field have been correctly filled
    if(selectedOffer.item_id != "" && selectedOffer.store_id != "" && selectedOffer.price != 0){
       console.log("To add offer with store_id: " + selectedOffer.store_id + " item_id: " + selectedOffer.item_id + " price: " + selectedOffer.price);
+      //TODO: Add functionality for offer creation
    } 
 });
