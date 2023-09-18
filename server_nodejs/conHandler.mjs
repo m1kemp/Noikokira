@@ -119,7 +119,6 @@ function updateProducts(fileName) {
             }
         }
         
-        //TODO:Add a query for adding a category for the inserted items 
         //sendQuery()
 
         // Bulk insert using a single query
@@ -263,10 +262,10 @@ function genOffers(){
     await Promise.all(promises);
     const values = [];
     for(var i = 0; i < offerNum; i++){
-        values.push([0, 0, randItem[i], randStore[i], randUser[i]])
+        values.push([0, 0, Math.floor(Math.random()*50), randItem[i], randStore[i], randUser[i]])
     }
     //Push the random offers to the database
-    const query = "INSERT INTO offer (likes, dislikes, item_id, store_id, user_id) VALUES ?";
+    const query = "INSERT INTO offer (likes, dislikes, price, item_id, store_id, user_id) VALUES ?";
     con.query(query, [values], (err, result) => {
         if (err) {
             console.log("db error");
@@ -357,7 +356,7 @@ let searchProd = (term) => {
 
 let searchOffer = (sName, lat, lon)=> {
     return new Promise((res, rej) => {
-        const query = "SELECT item.item_name, item.item_id, price FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
+        const query = "SELECT item.item_name, item.item_id, offer.offer_id, price FROM (item INNER JOIN offer ON offer.item_id = item.item_id) INNER JOIN store ON store.store_id = offer.store_id WHERE store.store_name = ? AND store.store_lat = ? AND store.store_lon = ?";
         con.query(query, [sName, lat, lon], (err, result) => {
             if (err) {
                 console.log("db error");

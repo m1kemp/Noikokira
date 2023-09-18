@@ -119,9 +119,23 @@ superForm.oninput = async function(){
 
 const button = document.getElementById("submitOffer");
 button.addEventListener("click", () =>{
+   var user_id = "";
    //Check if all the field have been correctly filled
    if(selectedOffer.item_id != "" && selectedOffer.store_id != "" && selectedOffer.price != 0){
-      console.log("To add offer with store_id: " + selectedOffer.store_id + " item_id: " + selectedOffer.item_id + " price: " + selectedOffer.price);
-      //TODO: Add functionality for offer creation
+      fetch("/user/credentials", { method: "POST", body: formData })
+     .then((r) => r.json())
+     .then((res) => {user_id = res.message[3]});
+      //Manual user_id = 1
+      user_id = 1;
+      console.log(user_id);
+      const endpoint="/database/update";
+      var formData = new FormData();
+      formData.append("type", "addOffer");
+      //formData.append("queryValues", [0, 0, selectedOffer.price, selectedOffer.item_id, selectedOffer.store_id, user_id]);
+      formData.append("price", selectedOffer.price);
+      formData.append("item_id", selectedOffer.item_id);
+      formData.append("store_id", selectedOffer.offer_id);
+      formData.append("user_id", selectedOffer.user_id);
+      fetch(endpoint, { method: "POST", body: formData});
    } 
 });

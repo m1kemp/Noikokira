@@ -1,7 +1,7 @@
 var username="";
 var password="";
 var email="";
-var user_id="";
+
 //Fetch username from server
 const endpoint = "/user/credentials";
 fetch(endpoint, {method: "POST"})
@@ -9,7 +9,7 @@ fetch(endpoint, {method: "POST"})
     email = res.message[0];
     username = res.message[1];
     password = res.message[2];
-    user_id = res.message[3];
+
  })
  .catch(err => console.error(err))
 

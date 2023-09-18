@@ -15,16 +15,16 @@ const router=express.Router()
 
 //User class
 class User{
-  constructor(email, username, password,user_id ){
+  constructor(email, username, password, user_id){
     this.email = email;
     this.username = username;
     this.password = password;
-    this.user_id  = user_id;
+    this.user_id = user_id;
   }
 }
 
 //Create a logged user object
-const loggedUser = new User("blank", "blank", "blank","blank");
+const loggedUser = new User("blank", "blank", "blank", "blank");
 
 router.get("/",(req,res)=>{
     res.render("admin_user")
@@ -83,6 +83,10 @@ router.post("/updateUser",(req,res)=>{
   
 })
 
+router.get("/offer/delete",(req,res)=>  {
+  res.render("createOffer");
+});
+
 router.post("/signedup",(req,res)=>{ 
  const {username,email,password}=req.body;
   con.query("SELECT email FROM user WHERE email=?",[email],(error,result)=>{
@@ -109,7 +113,7 @@ router.post("/homepage",(req,res)=>{
 const {username,password}=req.body;
 loggedUser.username = username;
 loggedUser.password = password;
-con.query("SELECT username,password,email, user_id from user WHERE username=? and password=?",
+con.query("SELECT username,password,email,user_id from user WHERE username=? and password=?",
 [username,password],(error,result)=>{
     if(error){
         console.log(error);
@@ -117,6 +121,8 @@ con.query("SELECT username,password,email, user_id from user WHERE username=? an
     else if(result.length>0){
       loggedUser.email = result[0].email;
       loggedUser.user_id = result[0].user_id;
+      console.log(loggedUser.user_id);
+      //console.log(user_id)
       return res.render("maps",{username:username})
     }
     else{
@@ -181,11 +187,32 @@ router.post("/database/update", async (req, res) => {
     if(req.body.type == "deleteProd"){
       removeProducts(req.body.fileName)
     }
-    if(req.body.type == "prodLike"){ //FINISH THIS
-      const query = "UPDATE offer SET likes = likes + 1 WHERE "
-      con.query(query, (err, result) => {
+    if(req.body.type == "prodLike"){
+      const query = "UPDATE offer SET likes = likes + 1 WHERE offer_id =  ?"
+      //console.log(req.body.offerId);
+      con.query(query,[req.body.offerId], (err, result) => {
         if (err) {
             console.error(err);
+        }
+    });
+  }
+    if(req.body.type == "prodDisike"){
+      const query = "UPDATE offer SET likes = dislikes + 1 WHERE offer_id = ?"
+      con.query(query,[req.body.offerId], (err, result) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    }
+    if(req.body.type == "addOffer"){
+      console.log("ADDOFFER");
+      const query = "INSERT INTO offer (likes, dislikes, price, item_id, store_id, user_id) VALUES ?";
+      con.query(query, [0, 0, req.body.price, req.body.item_id. req.body.store_id, req.body.user_id], (err, result) => {
+        if (err) {
+            console.log("db error");
+            console.error(err);
+        } else {
+            console.log("Added offers: " + result.affectedRows);
         }
     });
     }
@@ -202,9 +229,11 @@ router.post("/database/update", async (req, res) => {
 });
 
 
+
 router.post("/user/credentials", async(req, res)=>{
 
-  res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password,loggedUser.user_id]});
+  res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password, loggedUser.user_id]});
+  console.log(loggedUser.user_id);
     
 });
 
@@ -310,15 +339,13 @@ router.get("/product/detail",(req,res)=>{
 
   const itemName = req.query.itemName;
   const price=req.query.price;
-  res.render("productDetails",{itemName:itemName,price:price});
+  const offer=req.query.offer_id;
+  res.render("productDetails",{itemName:itemName,price:price, offerId:offer});
   })
 
 router.get("/offer/create",(req,res)=>  {
-  res.render("createOffer");
-});
-
-router.get("/offer/delete",(req,res)=>  {
-  res.render("createOffer");
+  const id = loggedUser.user_id;
+  res.render("createOffer", {user_id: id});
 });
 
 export{router}

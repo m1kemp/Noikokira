@@ -19,7 +19,7 @@ var redIcon = L.icon({
 function createDataForm(dArr) {
    // Clear element
    document.getElementById("finder").innerHTML = "";
-   document.getElementById("finder").style.marginRight = "400px";
+   document.getElementById("finder").style.marginRight = "500px";
    const node = document.createElement("div");
    node.classList.add("offer-container"); // Apply the offer container style
  
@@ -59,15 +59,16 @@ function createDataForm(dArr) {
            
 
          var itemName = encodeURIComponent(jsonData[i].item_name);
-         var priceComp = encodeURIComponent(jsonData[i].price);
-         var idComp = encodeURIComponent(jsonData[i].item_id);
-         linkTag.href = `/product/detail?itemName=${itemName}&price=${priceComp}&item_id=${idComp}`;
+         var price = encodeURIComponent(jsonData[i].price);
+         var offer_id = encodeURIComponent(jsonData[i].offer_id);
+         //console.log(jsonData[i].offer_id);
+         linkTag.href = `/product/detail?itemName=${itemName}&price=${price}&offer_id=${offer_id}`;
          linkTag.target = "_blank";
         
          linkTag.appendChild(
            document.createTextNode(
             
-             "Product: " + jsonData[i].item_name + " Price: -" +price
+             "Product: " + jsonData[i].item_name + " Price: " +price
            )
          );
 
@@ -84,7 +85,10 @@ function createDataForm(dArr) {
        node.appendChild(button);
        document.getElementById("finder").appendChild(node);
        button.addEventListener("click", () =>{
-         location.href="/offer/create"
+         const queryString = window.location.search;
+         const urlParams = new URLSearchParams(queryString);
+         const user_id = urlParams.get('user_id');
+         location.href="/offer/create";
      } );
 
 
