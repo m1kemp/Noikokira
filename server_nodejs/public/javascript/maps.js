@@ -19,7 +19,7 @@ var redIcon = L.icon({
 function createDataForm(dArr) {
    // Clear element
    document.getElementById("finder").innerHTML = "";
-   document.getElementById("finder").style.marginRight = "500px";
+   document.getElementById("finder").style.marginRight = "400px";
    const node = document.createElement("div");
    node.classList.add("offer-container"); // Apply the offer container style
  

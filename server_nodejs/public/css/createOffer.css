@@ -27,7 +27,7 @@ label {
 }
 
 
-input[type="submit"] {
+#submitOffer {
     background-color: #49c1a2;
     color: #fff;
     border: none;
@@ -37,6 +37,6 @@ input[type="submit"] {
     border-radius: 3px;
 }
 
-input[type="submit"]:hover {
+#submitOffer:hover {
     background-color: #0056b3;
 }

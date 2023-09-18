@@ -15,16 +15,16 @@ const router=express.Router()
 
 //User class
 class User{
-  constructor(email, username, password){
+  constructor(email, username, password,user_id ){
     this.email = email;
     this.username = username;
     this.password = password;
-    this.user_id;
+    this.user_id  = user_id;
   }
 }
 
 //Create a logged user object
-const loggedUser = new User("blank", "blank", "blank");
+const loggedUser = new User("blank", "blank", "blank","blank");
 
 router.get("/",(req,res)=>{
     res.render("admin_user")
@@ -60,13 +60,27 @@ router.get("/profUserChange",(req,res)=>{
 
 
 router.post("/updateUser",(req,res)=>{
+  const {username,email,password}=req.body;
+
+  loggedUser.username=username;
+  loggedUser.email=email;
+  loggedUser.password=password;
+  console.log(loggedUser.user_id);
   //Make code to update user
   //TODO: Call procedure updateUser with the new credentials and the user id from the loggedUser object
   //Also update the object loggedUser
-  loggedUser.username = "The new username";
-  loggedUser.password = "The new password";
-  loggedUser.email = "The new email";
-  res.render("maps",{username:loggedUser.username})
+  
+  con.query("UPDATE user SET username=?,password=?,email=?  WHERE user_id=? ",
+  [loggedUser.username,loggedUser.password,loggedUser.email,loggedUser.user_id],(error,result)=>{
+      if(error){
+          console.log(error);
+      }
+      else {
+        res.render("maps",{username:loggedUser.username})
+      }
+      
+      })
+  
 })
 
 router.post("/signedup",(req,res)=>{ 
@@ -190,7 +204,7 @@ router.post("/database/update", async (req, res) => {
 
 router.post("/user/credentials", async(req, res)=>{
 
-  res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password]});
+  res.json({message: [loggedUser.email, loggedUser.username, loggedUser.password,loggedUser.user_id]});
     
 });
 
@@ -300,6 +314,10 @@ router.get("/product/detail",(req,res)=>{
   })
 
 router.get("/offer/create",(req,res)=>  {
+  res.render("createOffer");
+});
+
+router.get("/offer/delete",(req,res)=>  {
   res.render("createOffer");
 });
 
