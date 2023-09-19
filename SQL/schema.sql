@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS item;
 CREATE TABLE item(
     item_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
     category_id SMALLINT UNSIGNED NOT NULL,
-    item_name VARCHAR(50) NOT NULL,
+    item_name VARCHAR(100) NOT NULL,
     PRIMARY KEY (item_id),
     CONSTRAINT fk_item_item_category FOREIGN KEY (category_id) REFERENCES item_category(category_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -45,7 +45,7 @@ CREATE TABLE item(
 
 CREATE TABLE store(
     store_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    store_name VARCHAR(20) NOT NULL,
+    store_name VARCHAR(40) NOT NULL,
     store_lat DOUBLE NOT NULL,
     store_lon DOUBLE NOT NULL,
     PRIMARY KEY(store_id)
@@ -58,10 +58,12 @@ CREATE TABLE offer(
     dislikes SMALLINT NOT NULL,
     item_id MEDIUMINT UNSIGNED NOT NULL,
     user_id SMALLINT UNSIGNED NOT NULL,
+   /* admin_id SMALLINT UNSIGNED ,*/
     store_id SMALLINT UNSIGNED NOT NULL,
-    price SMALLINT UNSIGNED NOT NULL,
+    price SMALLINT UNSIGNED,
     PRIMARY KEY(offer_id),
     CONSTRAINT fk_offer_item FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_offer_store FOREIGN KEY (store_id) REFERENCES store(store_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_offer_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  /*   CONSTRAINT fk_offer_admin FOREIGN KEY (admin_id) REFERENCES admin(admin_id) ON DELETE RESTRICT ON UPDATE CASCADE */
 );

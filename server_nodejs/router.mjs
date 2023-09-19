@@ -27,10 +27,12 @@ class User{
 const loggedUser = new User("blank", "blank", "blank", "blank");
 
 router.get("/",(req,res)=>{
+  res.setHeader("Cache-Control","max-age=3600")
     res.render("admin_user")
 })
 
 router.get("/login_admin",(req,res)=>{
+    res.setHeader("Cache-Control","max-age=3600")
     res.render("login_admin")
 })
 router.post("/homepage_admin",(req,res)=>{
@@ -41,20 +43,23 @@ router.post("/homepage_admin",(req,res)=>{
             console.log(error);
         }
         else if(result.length>0){
-    
+     res.setHeader("Cache-Control","max-age=3600")
     return res.render("homepage_admin",{username:username})
         }
         else{
+           res.setHeader("Cache-Control","max-age=3600")
             res.render("login_admin",{message:"The account does not exist"})
         }
         })
         })
 
 router.get("/login",(req,res)=>{
+   res.setHeader("Cache-Control","max-age=3600")
     res.render("login")
 })
 
 router.get("/profUserChange",(req,res)=>{
+  res.setHeader("Cache-Control","max-age=3600")
   res.render("profUserChange");
 })
 
@@ -76,6 +81,7 @@ router.post("/updateUser",(req,res)=>{
           console.log(error);
       }
       else {
+        res.setHeader("Cache-Control","max-age=3600")
         res.render("maps",{username:loggedUser.username})
       }
       
@@ -84,6 +90,7 @@ router.post("/updateUser",(req,res)=>{
 })
 
 router.get("/offer/delete",(req,res)=>  {
+  res.setHeader("Cache-Control","max-age=3600")
   res.render("createOffer");
 });
 
@@ -94,9 +101,11 @@ router.post("/signedup",(req,res)=>{
         console.log(error);
     }
  else if(result.length>0){
+   res.setHeader("Cache-Control","max-age=3600") 
    return res.render("signup",{message:"Email already exists"})
   }
   else{
+    res.setHeader("Cache-Control","max-age=3600")
     res.render("login",{username:username})
     con.query("INSERT INTO USER SET ?",{username:username,email:email,password:password,points:0,tokens:0})
      }
@@ -123,9 +132,11 @@ con.query("SELECT username,password,email,user_id from user WHERE username=? and
       loggedUser.user_id = result[0].user_id;
       console.log(loggedUser.user_id);
       //console.log(user_id)
+      res.setHeader("Cache-Control","max-age=3600")
       return res.render("maps",{username:username})
     }
     else{
+        res.setHeader("Cache-Control","max-age=3600")
         res.render("login",{message:"The account does not exist"})
     }
     })
