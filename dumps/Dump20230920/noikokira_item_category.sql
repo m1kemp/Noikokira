@@ -16,28 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admin`
+-- Table structure for table `item_category`
 --
 
-DROP TABLE IF EXISTS `admin`;
+DROP TABLE IF EXISTS `item_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin` (
-  `admin_id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `item_category` (
+  `category_id` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `item_category`
 --
 
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'admin','admin');
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+LOCK TABLES `item_category` WRITE;
+/*!40000 ALTER TABLE `item_category` DISABLE KEYS */;
+INSERT INTO `item_category` VALUES (1,'ee0022e7b1b34eb2b834ea334cda52e7'),(2,'d41744460283406a86f8e4bd5010a66d'),(3,'a8ac6be68b53443bbd93b229e2f9cd34'),(4,'8e8117f7d9d64cf1a931a351eb15bd69'),(5,'662418cbd02e435280148dbb8892782a'),(6,'8016e637b54241f8ad242ed1699bf2da'),(7,'e4b4de2e31fc43b7b68a0fe4fbfad2e6'),(8,'2d5f74de114747fd824ca8a6a9d687fa');
+/*!40000 ALTER TABLE `item_category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-20 15:28:45
+-- Dump completed on 2023-09-20 17:08:41

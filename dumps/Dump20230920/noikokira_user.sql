@@ -16,27 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `item_category`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `item_category`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `item_category` (
-  `category_id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `user` (
+  `user_id` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `points` smallint NOT NULL,
+  `tokens` smallint NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `item_category`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `item_category` WRITE;
-/*!40000 ALTER TABLE `item_category` DISABLE KEYS */;
-INSERT INTO `item_category` VALUES (1,'ee0022e7b1b34eb2b834ea334cda52e7'),(2,'d41744460283406a86f8e4bd5010a66d'),(3,'a8ac6be68b53443bbd93b229e2f9cd34'),(4,'8e8117f7d9d64cf1a931a351eb15bd69'),(5,'662418cbd02e435280148dbb8892782a'),(6,'8016e637b54241f8ad242ed1699bf2da'),(7,'e4b4de2e31fc43b7b68a0fe4fbfad2e6'),(8,'2d5f74de114747fd824ca8a6a9d687fa');
-/*!40000 ALTER TABLE `item_category` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'usadasdrnm','changeEmail','pass',0,0),(2,'testUser0','testUser0','testUser0',0,0),(3,'testUser1','testUser1','testUser1',0,0),(4,'testUser2','testUser2','testUser2',0,0),(5,'testUser3','testUser3','testUser3',0,0),(6,'testUser4','testUser4','testUser4',0,0),(7,'testUser5','testUser5','testUser5',0,0),(8,'testUser6','testUser6','testUser6',0,0),(9,'testUser7','testUser7','testUser7',0,0),(10,'testUser8','testUser8','testUser8',0,0),(11,'testUser9','testUser9','testUser9',0,0);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-20 15:28:44
+-- Dump completed on 2023-09-20 17:08:41
