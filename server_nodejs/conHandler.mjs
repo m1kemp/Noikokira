@@ -320,6 +320,24 @@ return new Promise((res, rej) => {
 });
 }
 
+let searchSuperNoDupe = (term) => {
+    return new Promise((res, rej) => {
+    //async function searchSuper(term){
+        term = term+"%";
+        const query = "SELECT store_name, store_lat, store_lon, store_id FROM store WHERE store_name LIKE ? GROUP BY store_name";
+        con.query(query, [term], (err, result) => {
+            if (err) {
+                console.log("db error");
+                console.error(err);
+            } else{
+                //console.log("Results: ", res);
+                res(result);
+            }
+        });
+    
+    });
+    }
+
 let searchProd = (term) => {
     return new Promise((res, rej) => {
         term = term+"%";
@@ -368,4 +386,4 @@ let searchOffer = (sName, lat, lon)=> {
     });
 }
 
-export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll };
+export { sendQuery, updateSupermarkets,removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll, searchSuperNoDupe };

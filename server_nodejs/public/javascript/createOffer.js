@@ -29,7 +29,7 @@ prodForm.oninput = async function(){
     var formData = new FormData();
     if(message == "Search Supermarkets"){
        //Send super to get supermarkets
-       formData.append("type", "super");
+       formData.append("type", "supernd");
     }else if(message == "Search Products"){
        formData.append("type", "prodAll");
     }
@@ -76,7 +76,7 @@ superForm.oninput = async function(){
     var formData = new FormData();
     if(message == "Search Supermarkets"){
        //Send super to get supermarkets
-       formData.append("type", "super");
+       formData.append("type", "supernd");
     }else if(message == "Search Products"){
        formData.append("type", "prod");
     }
@@ -90,6 +90,7 @@ superForm.oninput = async function(){
           var jsonData = res.message[0];
           if(userInput!="" && jsonData[0] != undefined){
             document.getElementById("suggestionSuper").innerHTML = jsonData[0].store_name;
+            console.log(jsonData);
             if(jsonData.length == 1){
                document.getElementById("suggestionSuper").style.color = "green";
                selectedOffer.store_id = jsonData[0].store_id;

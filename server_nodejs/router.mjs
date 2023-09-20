@@ -1,7 +1,7 @@
 import express from "express"
 import mysql from "mysql"
 import {con} from "./test.mjs"
-import {sendQuery, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll} from "./conHandler.mjs"
+import {sendQuery, searchSuperNoDupe, updateSupermarkets, removeSupermarkets, updateProducts, removeProducts, genOffers, searchSuper, searchProd, genUsers, searchOffer, searchProdAll} from "./conHandler.mjs"
 
 import fileUpload from "express-fileupload";
 import cors from "cors"
@@ -295,6 +295,12 @@ router.post("/database/search", async (req, res) => {
   const lon = req.body.lon;
   if(type == "super"){//Search supermarket
     const superP = searchSuper(term);
+    await Promise.all([superP]).then((rez)=>{
+      res.json({message: rez});
+    });
+  }
+  if(type == "supernd"){//Search supermarket
+    const superP = searchSuperNoDupe(term);
     await Promise.all([superP]).then((rez)=>{
       res.json({message: rez});
     });
