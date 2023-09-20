@@ -1,0 +1,53 @@
+-- MySQL dump 10.13  Distrib 8.0.27, for macos11 (x86_64)
+--
+-- Host: localhost    Database: noikokira
+-- ------------------------------------------------------
+-- Server version	8.0.28
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `store`
+--
+
+DROP TABLE IF EXISTS `store`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `store` (
+  `store_id` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `store_name` varchar(40) NOT NULL,
+  `store_lat` double NOT NULL,
+  `store_lon` double NOT NULL,
+  PRIMARY KEY (`store_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `store`
+--
+
+LOCK TABLES `store` WRITE;
+/*!40000 ALTER TABLE `store` DISABLE KEYS */;
+INSERT INTO `store` VALUES (1,'Lidl',38.2080319,21.712654),(2,'The Mart',38.28931,21.7806567),(3,'Lidl',38.2633511,21.7434265),(4,'Σουπερμάρκετ Ανδρικόπουλος',38.2952086,21.7908028),(5,'Σκλαβενίτης',38.2104365,21.7642075),(6,'Papakos',38.23553,21.7622778),(7,'Lidl',38.2312926,21.740082),(8,'Κρόνος',38.3013087,21.7814957),(9,'Σκλαβενίτης',38.2596476,21.7489662),(10,'Ρουμελιώτης SUPER Market',38.2613806,21.7436127),(11,'Σκλαβενίτης',38.2585236,21.741582),(12,'My market',38.2323892,21.7473265),(13,'ΑΒ Βασιλόπουλος',38.2322376,21.7257294),(14,'Markoulas',38.2644973,21.7603629),(15,'Lidl',38.3067563,21.8051332),(16,'Ανδρικόπουλος',38.2399863,21.736371),(17,'Σκλαβενίτης',38.2364945,21.7373409),(18,'My Market',38.2427052,21.7342362),(19,'My market',38.2568618,21.7396708),(20,'Ανδρικόπουλος',38.1951968,21.7323293),(21,'ΑΒ ΒΑΣΙΛΟΠΟΥΛΟΣ',38.2565589,21.7418506),(22,'Σκλαβενίτης',38.2434859,21.733285),(23,'Ανδρικόπουλος',38.2427963,21.7302559),(24,'Mini Market',38.2725804,21.8364993),(25,'Carna',38.2795377,21.7667136),(26,'Mini Market',38.3052409,21.7770011),(27,'Kronos',38.2425794,21.7296435),(28,'Φίλιππας',38.2585639,21.7504681),(29,'No supermarket',38.2498065,21.7363349),(30,'Kiosk',38.2490852,21.735128),(31,'Kiosk',38.2493169,21.7349115),(32,'Kiosk',38.2489563,21.7344427),(33,'Kiosk',38.2569875,21.7413066),(34,'Kiosk',38.2561434,21.7409531),(35,'Ανδρικόπουλος - Supermarket',38.2691937,21.7481501),(36,'Σκλαβενίτης',38.2690963,21.7497014),(37,'Mini Market',38.3277388,21.8764222),(38,'ΑΒ Βασιλόπουλος',38.2170935,21.7357783),(39,'Mini Market',38.2160259,21.7321204),(40,'3A',38.2504514,21.7396687),(41,'Spar',38.2486316,21.7389771),(42,'ΑΝΔΡΙΚΟΠΟΥΛΟΣ',38.2481545,21.7383224),(43,'ΑΝΔΡΙΚΟΠΟΥΛΟΣ',38.2429466,21.7308044),(44,'MyMarket',38.2392836,21.7265283),(45,'Ena Cash And Carry',38.2346622,21.7253472),(46,'ΚΡΟΝΟΣ - (Σκαγιοπουλείου)',38.2358002,21.7294915),(47,'Ανδρικόπουλος Super Market',38.2379176,21.7306406),(48,'3Α Αράπης',38.2375068,21.7328984),(49,'Γαλαξίας',38.2361127,21.733787),(50,'Super Market Θεοδωρόπουλος',38.2360129,21.7283123),(51,'Super Market ΚΡΟΝΟΣ',38.2390442,21.7340723),(52,'Σκλαβενίτης',38.2601801,21.7428703),(53,'3A ARAPIS',38.2586424,21.7460078),(54,'Μασούτης',38.2454669,21.7355058),(55,'ΑΒ Shop & Go',38.24957,21.7380288),(56,'3Α ΑΡΑΠΗΣ',38.2398789,21.7455558),(57,'Περίπτερο',38.2554443,21.7408745);
+/*!40000 ALTER TABLE `store` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-09-20 15:28:44
