@@ -217,8 +217,10 @@ router.post("/database/update", async (req, res) => {
     }
     if(req.body.type == "addOffer"){
       console.log("ADDOFFER");
-      const query = "INSERT INTO offer (likes, dislikes, price, item_id, store_id, user_id) VALUES ?";
-      con.query(query, [0, 0, req.body.price, req.body.item_id. req.body.store_id, req.body.user_id], (err, result) => {
+      console.log(req.body.item_id);
+      const query = "INSERT INTO offer (likes, dislikes, price, item_id, store_id, user_id) VALUES (?)";
+      //console.log([0, 0, req.body.price, req.body.item_id. req.body.store_id, req.body.user_id]);
+      con.query(query, [[0, 0, req.body.price, req.body.item_id, req.body.store_id, req.body.user_id]], (err, result) => {
         if (err) {
             console.log("db error");
             console.error(err);

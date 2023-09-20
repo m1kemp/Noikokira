@@ -1,13 +1,15 @@
 const prodForm = document.getElementById("product_name");
 const superForm = document.getElementById("superName");
 
-class selectedOffer{
-   constructor(){
-      this.item_id = "";
-      this.store_id = "";
-      this.price = -1;
+class offer{
+   constructor(item_id, store_id, price){
+      this.item_id = item_id;
+      this.store_id = store_id;
+      this.price = price;
    }
 }
+
+var selectedOffer = new offer("-", "-", -1);
 
 prodForm.oninput = async function(){
     // Get the user's input value
@@ -85,6 +87,7 @@ superForm.oninput = async function(){
             if(jsonData.length == 1){
                document.getElementById("suggestionSuper").style.color = "green";
                selectedOffer.store_id = jsonData[0].store_id;
+               
             }else{
                document.getElementById("suggestionSuper").style.color = "black";
                selectedOffer.store_id = "";
@@ -125,17 +128,15 @@ button.addEventListener("click", () =>{
       fetch("/user/credentials", { method: "POST", body: formData })
      .then((r) => r.json())
      .then((res) => {user_id = res.message[3]});
-      //Manual user_id = 1
-      user_id = 1;
-      console.log(user_id);
+      //console.log(user_id);
       const endpoint="/database/update";
       var formData = new FormData();
       formData.append("type", "addOffer");
       //formData.append("queryValues", [0, 0, selectedOffer.price, selectedOffer.item_id, selectedOffer.store_id, user_id]);
       formData.append("price", selectedOffer.price);
       formData.append("item_id", selectedOffer.item_id);
-      formData.append("store_id", selectedOffer.offer_id);
-      formData.append("user_id", selectedOffer.user_id);
+      formData.append("store_id", selectedOffer.store_id);
+      formData.append("user_id", 1);
       fetch(endpoint, { method: "POST", body: formData});
    } 
 });
