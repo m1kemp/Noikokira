@@ -1,6 +1,12 @@
 const prodForm = document.getElementById("product_name");
 const superForm = document.getElementById("superName");
 
+
+
+var myElement = document.getElementById("myElement");
+var user_id = myElement.getAttribute("data-user-id");
+console.log("User ID:", user_id);
+
 class offer{
    constructor(item_id, store_id, price){
       this.item_id = item_id;
