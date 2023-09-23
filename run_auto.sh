@@ -23,6 +23,7 @@ sudo mysql -e "CREATE USER 'remoteUser'@'localhost' IDENTIFIED BY 'remoteUser'" 
 sudo mysql -e "ALTER USER 'remoteUser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'remoteUser'"
 sudo mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'remoteUser'@'localhost'"
 
+sudo mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
 
 echo Schema setup...
 sudo mysql < SQL/schema.sql

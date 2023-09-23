@@ -40,7 +40,7 @@ function updateSupermarkets(fileName) {
 
         // Bulk insert using a single query
         if (valuesArray.length > 0) {
-            const query = "INSERT INTO STORE (store_name, store_lat, store_lon) VALUES ?";
+            const query = "INSERT INTO store (store_name, store_lat, store_lon) VALUES ?";
             con.query(query, [valuesArray], (err, result) => {
                 if (err) {
                     console.error(err);
@@ -79,7 +79,7 @@ function removeSupermarkets(fileName) {
 
         // Bulk insert using a single query
         if (valuesArray.length > 0) {
-            const query = "DELETE FROM STORE WHERE (store_name,store_lat, store_lon) IN (?)";
+            const query = "DELETE FROM store WHERE (store_name,store_lat, store_lon) IN (?)";
             con.query(query, [valuesArray], (err, result) => {
                 if (err) {
                     console.log("db error");

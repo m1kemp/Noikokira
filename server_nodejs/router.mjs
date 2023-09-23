@@ -254,11 +254,7 @@ router.post("/database/get", async (req, res) => {
   try{
     //Fetch supermarkets
     if(req.body.type == "super"){
-      let formData = new FormData();
-
-      var data;
-
-      const query = "select * from store;";
+      const query = "SELECT * FROM store;";
 
       con.query(query, (err, result) => {
         if (err) {
@@ -268,11 +264,6 @@ router.post("/database/get", async (req, res) => {
           res.json({message: result});
         }
     });
-    }
-
-    //Fetch products
-    if(req.body.type == "prod"){
-
     }
   }
   catch(err){

@@ -42,7 +42,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS addProduct;
 DELIMITER $
-CREATE PROCEDURE addProduct(IN productName VARCHAR(50), IN categoryName VARCHAR(50))
+CREATE PROCEDURE addProduct(IN productName VARCHAR(100), IN categoryName VARCHAR(50))
 BEGIN
     SELECT COUNT(*) INTO @catNum FROM item_category where category_name=categoryName;
     IF @catNum = 0 THEN
@@ -59,7 +59,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS deleteProduct;
 DELIMITER $
-CREATE PROCEDURE deleteProduct(IN productName VARCHAR(50))
+CREATE PROCEDURE deleteProduct(IN productName VARCHAR(100))
 BEGIN
     DELETE FROM item WHERE item_name=productName;
 END $
